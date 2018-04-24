@@ -1,9 +1,29 @@
+# Tabs: 4 spaces
+
 import mysql.connector
 
 # Commands go here | First person always. Ex. "I have *List of items*"
 
-# Connection here
+def inventory():
+    cur = db.cursor()
+    sql = "SELECT ObjectId, Description FROM Object"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        print("I have: ")
+        for item in cur.fetchall():
+            print("-" + row[0])
+    else:
+        print("I don't have anything at the moment.")
+    return
 
+# Connection here
+db = mysql.connector.connect(host="localhost",
+                            user="",
+                            passwd="",
+                            db="CallingOfVilla",
+                            buffered=True)
+
+                            
 # Initializing the location and an empty screen
 
 # Main Loop
