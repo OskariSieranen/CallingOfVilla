@@ -3,9 +3,10 @@
 import mysql.connector
 import time
 from termcolor import colored
+import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: go, take, use, light, look, talk, (read), (eat), quit, restart?, (save, load, audio-on/off?) 
+# TODO: Commands: go, take, use, light, look, talk, (read), (eat), quit, restart?, (save, load,) 
 
 def inventory():
     cur = db.cursor()
@@ -19,6 +20,11 @@ def inventory():
         print("I don't have anything at the moment.")
     return
 
+def playAudio():
+    pygame.mixer.music.play()
+
+def stopAudio():
+    pygame.mixer.music.stop()
 # Connection here
 # db = mysql.connector.connect(host="localhost",
 #                            user="",
@@ -26,6 +32,11 @@ def inventory():
 #                            db="CallingOfVilla",
 #                            buffered=True)
 
+# Initializing the music
+pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load('TestSong.wav')
+pygame.mixer.music.play()
                             
 # Initializing the location and an empty screen
 print("\n"*1000)
@@ -85,7 +96,7 @@ print("Your name is",PlayerName,"and you are an aspiring blogger going to explor
 print("Your friend dropped of you at the edge of the forest and after a couple of hours of hiking, you have finally arrived at the old mansion.")
 print("You enter the once magnificent building and hear the giant double doors lock behind your back.")
 print("The old house seems creepier and creepier by the second, and you have to...")
-time.sleep(17)
+# time.sleep(17)
 print("... G E T  O U T...")
 location = "MAINHALL"
 command = ""
@@ -110,9 +121,19 @@ while command != "quit" and location != "END":
     if command=="inventory" or command=="i":
         inventory()
     
+    
+    # Audio Commands
+    elif command=="play":
+        playAudio()
+    
+    elif command=="stop":
+        stopAudio()
+    
+    # Unknown Command
     elif command!="quit" and command!="":
         print("I don't think I can",command)
     
+   
 
 if (location=="EXIT"):
     print("") # Victory speech here
