@@ -46,14 +46,14 @@ house = colored('''
             
                *         .              *            _.---._      
                              ___   .            ___.'       '.   *
-        .              _____[LLL]______________[LLL]_____     |
+        .              _____[LLL]______________[LLL]_____      |
                       /     [LLL]              [LLL]     \     |
                      /____________________________________\    |    .
                       )==================================(    /
      .      *         '|I .-. I .-. I .--. I .-. I .-. I|'  .'
                   *    |I |+| I |+| I |. | I |+| I |+| I|-'`       *
                        |I_|+|_I_|+|_I_|__|_I_|+|_I_|+|_I|      .
-              .       /_I_____I_____I______I_____I_____I|_
+              .       _|I_____I_____I______I_____I_____I|_
                        )================================(   *
        *         _     |I .-. I .-. I .--. I .-. I .-. I|          *
                 |u|  __|I |+| I |+| I |<>| I |+| I |+| I|    _         .
@@ -109,9 +109,10 @@ while command != "quit" and location != "END":
     #All of the action come here vvv
     if command=="inventory" or command=="i":
         inventory()
+    
     elif command!="quit" and command!="":
         print("I don't think I can",command)
-
+    
 
 if (location=="EXIT"):
     print("") # Victory speech here
