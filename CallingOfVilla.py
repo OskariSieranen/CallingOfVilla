@@ -20,6 +20,20 @@ def inventory():
         print("I don't have anything at the moment.")
     return
 
+ ## AND SOURCE keskelle missä pelkkä AND??
+def move():
+    destination = location
+    cur = db.cursor()
+    sql ="SELECT Location FROM Passage WHERE Direction.") + Direction + "AND" + location + "AND Locked=0"
+    cur.execute(sql)
+    if cur.rowcount>=1:
+            for row in cur.fetchall():
+                destination = row[0]
+    else:
+        destination = location:
+    return destination
+
+
 def look():
     cur = db.cursor()
     sql = "SELECT Description, Details FROM Location WHERE ID='" + location + "';"

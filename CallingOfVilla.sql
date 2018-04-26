@@ -22,7 +22,7 @@ CREATE TABLE Object
   PRIMARY KEY (Object_id),
   FOREIGN KEY (Location_id) REFERENCES Location(Location_id)
 );
-
+-- Vaihdettiin passagelocation id 1 ja 2  -> StartLocation, Destination
 CREATE TABLE Passage
 (
   Direction VARCHAR(10),
@@ -30,10 +30,10 @@ CREATE TABLE Passage
   Locked BOOLEAN,
   Death BOOLEAN,
   Music VARCHAR(40),
-  PassageLocation_id_1 VARCHAR(10) NOT NULL,
-  PassageLocation_id_2 VARCHAR(10) NOT NULL,
-  PRIMARY KEY (PassageLocation_id_1, PassageLocation_id_2),
-  FOREIGN KEY (PassageLocation_id_1) REFERENCES Location(Location_id),
-  FOREIGN KEY (PassageLocation_id_2) REFERENCES Location(Location_id)
+  StartLocation VARCHAR(10) NOT NULL,
+  Destination VARCHAR(10) NOT NULL,
+  PRIMARY KEY (StartLocation, Destination),
+  FOREIGN KEY (StartLocation) REFERENCES Location(Location_id),
+  FOREIGN KEY (Destination) REFERENCES Location(Location_id)
 );
 
