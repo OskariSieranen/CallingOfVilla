@@ -24,13 +24,13 @@ def inventory():
 def move():
     destination = location
     cur = db.cursor()
-    sql ="SELECT Location FROM Passage WHERE Direction.") + Direction + "AND" + location + "AND Locked=0"
+    sql ="SELECT Location FROM Passage WHERE Direction." + Direction + "AND" + location + "AND Locked=0"
     cur.execute(sql)
     if cur.rowcount>=1:
             for row in cur.fetchall():
                 destination = row[0]
     else:
-        destination = location:
+        destination = location
     return destination
 
 
@@ -71,7 +71,7 @@ pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
                             
-# Initializing the location and an empty screen
+# Initializing the emptyscreen, loading titles and resetting the location
 print("\n"*1000)
 logo =colored('''
  _______  _______  _        _       _________ _        _______    _______  _______            _________ _        _        _______ 
@@ -85,7 +85,7 @@ logo =colored('''
                                                                                                                                                                                                                                                     
 ''', 'red')
 print(logo)
-time.sleep(3)
+time.sleep(3) 
 house = colored('''
             
                *         .              *            _.---._      
@@ -151,16 +151,29 @@ while command!="quit" and command!="exit" and location!="END":
     # Print an empty line for readability
     print("")
     #All of the action come here vvv
+    # Inventory
     if command=="inventory" or command=="i":
         inventory()
     
+    # Looking around
     elif command=="look":
         look()
-    
+
+    # Taking objects 
     elif command=="take" or command=="get" and target!="":
         getOK = getObject(target)
         # if getOK==1:
             # Things appearing if get here.
+
+    # Movement
+    elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w":
+        movedLocation = move(location, destination)
+        if location == movedLocation:
+            print("I can't move there")
+        else:
+            location = movedLocation
+            look()
+
 
     # Audio Commands
     elif command=="play":
@@ -170,7 +183,7 @@ while command!="quit" and command!="exit" and location!="END":
         stopAudio()
     
     # Unknown Command
-    elif command!="quit" and command!="":
+    elif command!="quit" and command!="exit" and command!="":
         print("I don't think I can",command)
     
    
