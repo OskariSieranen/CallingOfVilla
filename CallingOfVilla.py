@@ -6,11 +6,11 @@ from termcolor import colored
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: go, take, use, light, look, talk, (read), (eat), quit, restart?, (save, load,) 
+# TODO: Commands: go, use, light, talk, (read), (eat), quit, restart?, (save, load,) 
 
 def inventory():
     cur = db.cursor()
-    sql = "SELECT ObjectId, Description FROM Object WHERE Location = Player;"
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location = Player;"
     cur.execute(sql)
     if cur.rowcount()>=1:
         print("I have: ")
@@ -19,6 +19,25 @@ def inventory():
     else:
         print("I don't have anything at the moment.")
     return
+
+def look():
+    cur = db.cursor()
+    sql = "SELECT Description, Details FROM Location WHERE ID='" + location + "';"
+    cur.execute(sql)
+    print("I am in the: ")
+    for row in cur:
+        print (row[0])
+        if (row[1]!=""):
+            print(row[1])
+
+def getObject(target):
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='Player', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=TRUE"
+    cur.execute(sql)
+    if cur.rowcount==1:
+        print("I take the", target)
+    else:
+        print("I can't take that right now.")
 
 def playAudio():
     pygame.mixer.music.play()
@@ -102,7 +121,7 @@ location = "MAINHALL"
 command = ""
 
 # Main Loop
-while command != "quit" and location != "END":
+while command!="quit" and command!="exit" and location!="END":
     print("")
     operation = input("What to do: ").split()
     # The user's command is taken
@@ -121,7 +140,14 @@ while command != "quit" and location != "END":
     if command=="inventory" or command=="i":
         inventory()
     
+    elif command=="look":
+        look()
     
+    elif command=="take" or command=="get" and target!="":
+        getOK = getObject(target)
+        # if getOK==1:
+            # Things appearing if get here.
+
     # Audio Commands
     elif command=="play":
         playAudio()
