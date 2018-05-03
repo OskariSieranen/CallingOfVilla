@@ -11,7 +11,7 @@ import pygame
 
 def inventory():
     cur = db.cursor()
-    sql = "SELECT Object_Id, Description FROM Object WHERE Location = PLAYER;"
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location = 'PLAYER';"
     cur.execute(sql)
     if cur.rowcount()>=1:
         print("I have: ")
@@ -19,12 +19,11 @@ def inventory():
             print("-" + item[0])
     else:
         print("I don't have anything at the moment.")
-    return
 
 def light():
     cur = db.cursor()
-    sql = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = FLASHLIGHT"
-    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = LAMP"
+    sql = "SELECT Object_Id FROM Object WHERE Location = 'PLAYER' and Object_Id = 'FLASHLIGHT';"
+    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = LAMP;"
     cur.execute(sql)
     if cur.rowcount()>=1:
         print("My flashlight is on.")
@@ -36,22 +35,22 @@ def light():
     
 
  # AND SOURCE keskelle missä pelkkä AND??
-def move(location, destination):
-    destination = location
+def move(location, direction):
+    direction = location
     cur = db.cursor()
-    sql ="SELECT Location FROM Passage WHERE Direction." + Direction + "AND" + location + "AND Locked=0"
+    sql = "SELECT Destination FROM Passage WHERE Direction='" + command + "' AND StartLocation='" + location + "' AND Locked=0;"
     cur.execute(sql)
     if cur.rowcount>=1:
             for row in cur.fetchall():
-                destination = row[0]
+                direction = row[0]
     else:
-        destination = location
-    return destination
+        direction = location
+    return direction
 
 # Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
 def look():
     cur = db.cursor()
-    sql = "SELECT Description, Details FROM Location WHERE ID='" + location + "';"
+    sql = "SELECT Description, Details FROM Location WHERE Location_Id='" + location + "';"
     cur.execute(sql)
     print("I am in the: ")
     for row in cur:
@@ -106,7 +105,7 @@ def useStudyKey():
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='STUDYKEY' AND Location='PLAYER'"
     cur.execute(sql)
     if cur.rowcount()>=1:
-        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Destination='STUDY';"
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND direction='STUDY';"
         cur.execute(sql)
         if cur.rowcount()>=1:
             print("The key I had opened the study.")
@@ -115,7 +114,7 @@ def useStudyKey():
 
 def useAtticSwitch():
     cur = db.cursor()
-    sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE';"
+    sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND direction='GARDENENTRANCE';"
     cur.execute(sql)
     print("I hear rumbling from downstairs...")
     location = "MAINHALL"
@@ -129,12 +128,12 @@ def playAudio():
 def stopAudio():
     pygame.mixer.music.stop()
 
-# Connection here
-# db = mysql.connector.connect(host="localhost",
-#                            user="",
-#                            passwd="",
-#                            db="CallingOfVilla",
-#                            buffered=True)
+
+db = mysql.connector.connect(host="localhost",
+                           user="root",
+                           passwd="MountainDiscoLadder",
+                           db="cov",
+                           buffered=True)
 
 # Initializing the music
 pygame.init()
@@ -156,7 +155,7 @@ logo =colored('''
                                                                                                                                                                                                                                                     
 ''', 'red')
 print(logo)
-time.sleep(3) 
+#time.sleep(3) 
 house = colored('''
             
                *         .              *            _.---._      
@@ -231,7 +230,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
         inventory()
     
     # Looking around
-    elif command=="look":
+    elif command=="look" or command=="l":
         look()
 
     # Taking objects 
@@ -241,11 +240,12 @@ while command!="quit" and command!="exit" and location!="EXIT":
             # Things appearing if get here.
 
     # Movement 
-    #TODO IS THAT QUEST BROOM SUPPOSED TO BE MASTER
+    #TODO IS THAT QUEST B-ROOM SUPPOSED TO BE MASTER
     elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w" \
         or command=="nw" or command=="sw" or command=="ne" or command=="se" or command=="northwest" or command=="southwest" or command=="northeast" or command=="southeast" \
         or command=="up" or command=="u" or command=="down" or command=="d":
-        movedLocation = move(location, destination)
+       
+        movedLocation = move(location, command)
         if location == movedLocation:
             print("I can't move there")
         else:
@@ -260,7 +260,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
 
 
     # Light command
-    elif command=="light" or command=="l":
+    elif command=="light":
         light()
 
     # Audio Commands
