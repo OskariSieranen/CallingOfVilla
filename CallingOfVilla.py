@@ -71,9 +71,13 @@ def getObject(target):
 # Events here:
 def eventTrophyVoices():
     print("My head feels light ... more voices..?")
+    #time.sleep(3)
     cprint("...you boys hear about the servant girl?", 'magenta')
+    #time.sleep(3)
     cprint("...the one caught stealing from the master?", 'cyan')
+    #time.sleep(3)
     cprint("...I hear she is still hiding in that small room in the kitchen...", 'magenta')
+    #time.sleep(3)
     cprint("...let's hope that she has learned her lesson...", 'cyan')
     TrophyVoices = True
 def eventWalkwayVoices():
@@ -84,6 +88,16 @@ def eventQuestBedroomVoices():
     cprint("... I'm feeling peckish... they always said that the answer can be found on your plate", 'blue')
     QuestVoices = True
 
+def eventAtticVoices():
+    cprint("...I wonder if he is ok...", 'cyan')
+    #time.sleep(3)
+    cprint("...mhmhmhmhmhmhmhmhhhm...", 'yellow')
+    #time.sleep(3)
+    cprint("...I agree, he does look a bit different from the last time, maybe even worse...", 'cyan')
+    #time.sleep(3)
+    cprint("...mhmhmhmhmhmhmmhhmmhmhm...", 'yellow')
+    #time.sleep(3)
+    cprint("...I hope so too...", 'cyan')
 
 
 # Use triggers:
@@ -99,6 +113,14 @@ def useStudyKey():
     else:
         print("I can't do that now.")
 
+def useAtticSwitch():
+    cur = db.cursor()
+    sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE';"
+    cur.execute(sql)
+    print("I hear rumbling from downstairs...")
+    location = "MAINHALL"
+    look()
+    print(" It seems that the switch moved the statue, revealing a door behind it...")
 
 
 def playAudio():
@@ -181,11 +203,13 @@ print("The old house seems creepier and creepier by the second, and you have to.
 print("... G E T  O U T...")
 print("I can hear a whispy voice around me... I can almost make out the words...")
 #time.sleep(3)
+print("")
 cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
 location = "MAINHALL" 
 command = ""
 
-# Main Loop
+# Main Loop 
+# If player has no lightsource, add a line after each loop that says 'It is so dark in here'
 while command!="quit" and command!="exit" and location!="EXIT":
     print("")
     operation = input("What to do: ").split()
