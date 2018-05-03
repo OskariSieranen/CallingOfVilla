@@ -6,7 +6,7 @@ from termcolor import colored
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: use, light, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects
+# TODO: Commands: use, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects
 
 def inventory():
     cur = db.cursor()
@@ -47,7 +47,7 @@ def move():
         destination = location
     return destination
 
-# Change to include objects aswell
+# Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
 def look():
     cur = db.cursor()
     sql = "SELECT Description, Details FROM Location WHERE ID='" + location + "';"
@@ -193,7 +193,7 @@ while command!="quit" and command!="exit" and location!="END":
             look()
 
     # Light command
-    elif command=="light" or command=="l"
+    elif command=="light" or command=="l":
         light()
 
     # Audio Commands
