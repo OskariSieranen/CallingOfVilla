@@ -13,24 +13,25 @@ def inventory():
     cur = db.cursor()
     sql = "SELECT Object_Id, Description FROM Object WHERE Location = 'PLAYER';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    res = cur.fetchall()
+    if cur.rowcount>=1:
         print("I have: ")
-        for item in cur.fetchall():
-            print("-" + item[0])
+        for item in res:
+            print("- " + item[0])
     else:
         print("I don't have anything at the moment.")
 
 def light():
     cur = db.cursor()
-    sql = "SELECT Object_Id FROM Object WHERE Location = 'PLAYER' and Object_Id = 'FLASHLIGHT';"
-    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = LAMP;"
+    sql = "SELECT Object_Id FROM Object WHERE Location = 'PLAYER' AND Object_Id = 'FLASHLIGHT';"
+    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = 'PLAYER' AND Object_Id = 'LAMP';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         print("My flashlight is on.")
     else:
         print("I have nothing to light at the moment.")
     cur.execute(sqlTwo)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         print("My oil lamp is on.")
     
 
