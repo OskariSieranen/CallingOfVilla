@@ -45,6 +45,7 @@ CREATE TABLE Passage
 -- LOCATION
 INSERT INTO LOCATION VALUES ('Location_id', 'Description', 'Details', 'Music');
 INSERT INTO LOCATION VALUES ('', '', '', '');
+INSERT INTO LOCATION VALUES ('Player', 'with the player', '', '');
 -- First floor
 INSERT INTO LOCATION VALUES ('main hall', 'You are in the main hall', 'There are large statue of a man with face hidden by moss. There are also two sets of stairs going to the second floor, the rightmost ones being broken', '');
 INSERT INTO LOCATION VALUES ('library', 'You are in the library', 'There are broken book pieces scattered around room, but some random bits and pieces can still be read from some volumes', '');
@@ -113,13 +114,13 @@ INSERT INTO PASSAGE VALUES ('w', '', FALSE, TRUE, '', 'room no floor', 'death ro
 INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'middle room', 'hallway')
 INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'hallway', 'middle room')
 INSERT INTO PASSAGE VALUES ('sw', '', FALSE, FALSE, '', 'hallway', 'master bedroom')
-INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'master bedroom', 'hallway')
+INSERT INTO PASSAGE VALUES ('ne', '', FALSE, FALSE, '', 'master bedroom', 'hallway')
 INSERT INTO PASSAGE VALUES ('nw', '', FALSE, FALSE, '', 'hallway', 'quest bedroom')
-INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'quest bedroom', 'hallway')
+INSERT INTO PASSAGE VALUES ('se', '', FALSE, FALSE, '', 'quest bedroom', 'hallway')
 INSERT INTO PASSAGE VALUES ('se', '', FALSE, FALSE, '', 'hallway', 'children*s room')
-INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'children*s room', 'hallway')
+INSERT INTO PASSAGE VALUES ('nw', '', FALSE, FALSE, '', 'children*s room', 'hallway')
 INSERT INTO PASSAGE VALUES ('ne', '', FALSE, FALSE, '', 'hallway', 'study')
-INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'study', 'hallway')
+INSERT INTO PASSAGE VALUES ('sw', '', FALSE, FALSE, '', 'study', 'hallway')
 
 -- Attic
 INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'hallway', 'attic')
@@ -150,10 +151,10 @@ INSERT INTO PASSAGE VALUES ('Object_id', 'Description', 'Refname', 'Details', 'L
 INSERT INTO PASSAGE VALUES ('', '', '', '', '', TRUE, TRUE, FALSE, '', '')
 -- All objects
 INSERT INTO PASSAGE VALUES ('ladder', 'Old ladder', 'ladder', 'Old used wooden ladder', 'secret room', TRUE, TRUE, FALSE, '', '')
-INSERT INTO PASSAGE VALUES ('key1', '', 'key', '', 'dining hall', TRUE, TRUE, FALSE, '', '')
-INSERT INTO PASSAGE VALUES ('manifest', 'worn manifest', 'manifest', '', 'study', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('key1', 'Key to the study', 'key', '', 'dining hall', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('manifest', 'Worn manifest', 'manifest', '', 'study', TRUE, TRUE, FALSE, '', '')
 INSERT INTO PASSAGE VALUES ('biography', '', 'biography', '', 'library', TRUE, TRUE, FALSE, '', '')
-INSERT INTO PASSAGE VALUES ('key2', '', 'key', '', 'library', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('key2', 'Key to the attic', 'key', '', 'library', TRUE, TRUE, FALSE, '', '')
 INSERT INTO PASSAGE VALUES ('lamp', 'rusty oil lamp', 'lamp', '', 'children*s room', TRUE, TRUE, FALSE, '', '')
 INSERT INTO PASSAGE VALUES ('clothes', '', 'clothes', '', 'children*s room', TRUE, TRUE, FALSE, '', '')
 INSERT INTO PASSAGE VALUES ('glimmer', 'Key to the cellar', 'glimmer', '', 'fountain', TRUE, TRUE, FALSE, '', '')
