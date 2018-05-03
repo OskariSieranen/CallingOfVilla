@@ -141,7 +141,8 @@ pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
-                            
+
+WalkwayVoices = QuestVoices = TrophyVoices = False                
 # Initializing the emptyscreen, loading titles and resetting the location
 print("\n"*1000)
 logo =colored('''
@@ -281,4 +282,5 @@ if (location=="EXIT"):
     print("") # Victory speech here
 else:
     print("Don't be gone too long...")
+    time.sleep(3)
 db.rollback()
