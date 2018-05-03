@@ -6,7 +6,7 @@ from termcolor import colored
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: go, use, light, talk, (read), (eat), quit, restart?, (save, load,) 
+# TODO: Commands: use, light, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects
 
 def inventory():
     cur = db.cursor()
@@ -19,6 +19,20 @@ def inventory():
     else:
         print("I don't have anything at the moment.")
     return
+
+def light():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Location = Player and Object_Id = Flashlight"
+    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = Player and Object_Id = Lamp"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        print("My flashlight is on.")
+    else:
+        print("I have nothing to light at the moment.")
+    cur.execute(sqlTwo)
+    if cur.rowcount()>=1:
+        print("My oil lamp is on.")
+    
 
  ## AND SOURCE keskelle missä pelkkä AND??
 def move():
@@ -33,7 +47,7 @@ def move():
         destination = location
     return destination
 
-
+# Change to include objects aswell
 def look():
     cur = db.cursor()
     sql = "SELECT Description, Details FROM Location WHERE ID='" + location + "';"
@@ -58,6 +72,8 @@ def playAudio():
 
 def stopAudio():
     pygame.mixer.music.stop()
+
+
 # Connection here
 # db = mysql.connector.connect(host="localhost",
 #                            user="",
@@ -166,7 +182,9 @@ while command!="quit" and command!="exit" and location!="END":
             # Things appearing if get here.
 
     # Movement
-    elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w":
+    elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w" \
+        or command=="nw" or command=="sw" or command=="ne" or command=="se" or command=="northwest" or command=="southwest" or command=="northeast" or command=="southeast" \
+        or command=="up" or command=="u" or command=="down" or command=="d":
         movedLocation = move(location, destination)
         if location == movedLocation:
             print("I can't move there")
@@ -174,6 +192,9 @@ while command!="quit" and command!="exit" and location!="END":
             location = movedLocation
             look()
 
+    # Light command
+    elif command=="light" or command=="l"
+        light()
 
     # Audio Commands
     elif command=="play":
