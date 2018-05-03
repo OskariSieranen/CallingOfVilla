@@ -1,0 +1,164 @@
+DROP TABLE IF EXISTS PASSAGE;
+DROP TABLE IF EXISTS OBJECT;
+DROP TABLE IF EXISTS LOCATION;
+
+CREATE TABLE Location
+(
+  Location_id VARCHAR(15) NOT NULL,
+  Description VARCHAR(120),
+  Details VARCHAR(1000),
+  Music VARCHAR(40),
+  PRIMARY KEY (Location_id)
+);
+
+CREATE TABLE Object
+(
+  Object_id VARCHAR(10) NOT NULL,
+  Description VARCHAR(40),
+  Refname VARCHAR(40),
+  Details VARCHAR(1000),
+  Location VARCHAR(15),
+  Available BOOLEAN,
+  Takeable BOOLEAN,
+  Death BOOLEAN,
+  Music VARCHAR(40),
+  Location_id VARCHAR(15),
+  PRIMARY KEY (Object_id),
+  FOREIGN KEY (Location_id) REFERENCES Location(Location_id)
+);
+-- Vaihdettiin passagelocation id 1 ja 2  -> StartLocation, Destination
+CREATE TABLE Passage
+(
+  Direction VARCHAR(10),
+  Locknote VARCHAR(40),
+  Locked BOOLEAN,
+  Death BOOLEAN,
+  Music VARCHAR(40),
+  StartLocation VARCHAR(15) NOT NULL,
+  Destination VARCHAR(15) NOT NULL,
+  PRIMARY KEY (StartLocation, Destination),
+  FOREIGN KEY (StartLocation) REFERENCES Location(Location_id),
+  FOREIGN KEY (Destination) REFERENCES Location(Location_id)
+);
+
+
+-- LOCATION
+INSERT INTO LOCATION VALUES ('Location_id', 'Description', 'Details', 'Music');
+INSERT INTO LOCATION VALUES ('', '', '', '');
+-- First floor
+INSERT INTO LOCATION VALUES ('main hall', 'You are in the main hall', 'There are large statue of a man with face hidden by moss. There are also two sets of stairs going to the second floor, the rightmost ones being broken', '');
+INSERT INTO LOCATION VALUES ('library', 'You are in the library', 'There are broken book pieces scattered around room, but some random bits and pieces can still be read from some volumes', '');
+INSERT INTO LOCATION VALUES ('trophy room', 'You are in the trophy room', 'There are all kinds of stuffes animals their eyes seem to always one around', '');
+INSERT INTO LOCATION VALUES ('dining hall', 'You are in the dining hall', 'There are large wooden dining table, still set from the last time it was used', '');
+INSERT INTO LOCATION VALUES ('kitchen', 'You are in the kitchen', 'The kitchen looks clean, it was clear that the workers were very organized', '');
+INSERT INTO LOCATION VALUES ('secret room', 'You are in the hidden servant*s room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
+
+-- Second floor
+INSERT INTO LOCATION VALUES ('hallway', 'You are in the hallway', 'The hallway is best lit so far, featuring large window owerlooking the decrepit garden', '');
+INSERT INTO LOCATION VALUES ('quest bedroom', 'You are in the quest bedroom', 'The guest bedroom is the direct opposite of the master bedroom, having half of the ceiling collapsed on the room, making it unusable for anything', '');
+INSERT INTO LOCATION VALUES ('master bedroom', 'You are in the master bedroom', 'The master bedroom has inexplicably survived, looking how one would expect the house’s lord’s bedroom to look', '');
+INSERT INTO LOCATION VALUES ('study', 'You are in the study', '', '');
+INSERT INTO LOCATION VALUES ('children*s room', 'You are in the children*s room', 'The children’s room is at start almost as horrid as the guest bedroom', '');
+INSERT INTO LOCATION VALUES ('middle room', 'You are in the middle room', 'There are broken stairs down', '');
+INSERT INTO LOCATION VALUES ('walkway bath', 'You are in the walkway to bathroom', '', '');
+INSERT INTO LOCATION VALUES ('bathroom', 'You are in the bathroom', 'The bathroom has seen better days, looking generally very sticky', '');
+INSERT INTO LOCATION VALUES ('room no floor', 'You are in the room with minimal amount of floor at the door', '', '');
+INSERT INTO LOCATION VALUES ('death room', 'You died', '', '');
+
+-- Attic
+INSERT INTO LOCATION VALUES ('attic', 'You are in the attic', 'Everything in the attic is covered in dust. In the middle of the room, there is a switch. Illuminating the room is a big round window overlooking the entrance to the house', '');
+
+-- Garden
+INSERT INTO LOCATION VALUES ('garden entrance', 'You are in the garden entrance', 'The garden is in full bloom and looks well kept', '');
+INSERT INTO LOCATION VALUES ('garden proper', 'You are in the garden proper', 'It*s dark and moist', '');
+INSERT INTO LOCATION VALUES ('tool shed', 'You are in the tool shed', 'The shed is small and full of spiders', '');
+INSERT INTO LOCATION VALUES ('fountain', 'You are near fountain', 'There is giant fountain in front of you', '');
+
+-- Cellar
+INSERT INTO LOCATION VALUES ('riddle room', 'You are in the room full of puzzles', 'wordplay', '');
+INSERT INTO LOCATION VALUES ('well', 'You are in the well', 'There looks to be some light at the bottom of well', '');
+INSERT INTO LOCATION VALUES ('the end', 'You are in a nice opening of forest', 'You see behind you hidden entrance to the psychiatric hospital and in front of you big forest', '');
+
+
+-- PASSAGE
+INSERT INTO PASSAGE VALUES ('Direction', 'Locknote', Locked BOOLEAN, Death BOOLEAN, 'Music', 'StartLocation', 'Destination')
+INSERT INTO PASSAGE VALUES ('', '', FALSE, FALSE, '', '', '')
+-- First floor
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'main hall', 'library')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'library', 'main hall')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'library', 'trophy room')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'trophy room', 'library')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'main hall', 'dining hall')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'dining hall', 'main hall')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'dining hall', 'kitchen')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'kitchen', 'dining hall')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'kitchen', 'secret room')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'secret room', 'kitchen')
+
+INSERT INTO PASSAGE VALUES ('u', '', FALSE, FALSE, '', 'main hall', 'middle room')
+INSERT INTO PASSAGE VALUES ('d', '', FALSE, FALSE, '', 'middle room', 'main hall')
+
+-- Second floor
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'middle room', 'walkway bath')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'walkway bath', 'middle room')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'walkway bath', 'bathroom')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'bathroom', 'walkway bath')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'bathroom', 'room no floor')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'room no floor', 'bathroom')
+-- death if not go back same way
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, TRUE, '', 'room no floor', 'death room')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, TRUE, '', 'room no floor', 'death room')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, TRUE, '', 'room no floor', 'death room')
+
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'middle room', 'hallway')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'hallway', 'middle room')
+INSERT INTO PASSAGE VALUES ('sw', '', FALSE, FALSE, '', 'hallway', 'master bedroom')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'master bedroom', 'hallway')
+INSERT INTO PASSAGE VALUES ('nw', '', FALSE, FALSE, '', 'hallway', 'quest bedroom')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'quest bedroom', 'hallway')
+INSERT INTO PASSAGE VALUES ('se', '', FALSE, FALSE, '', 'hallway', 'children*s room')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'children*s room', 'hallway')
+INSERT INTO PASSAGE VALUES ('ne', '', FALSE, FALSE, '', 'hallway', 'study')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'study', 'hallway')
+
+-- Attic
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'hallway', 'attic')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'attic', 'hallway')
+
+-- Garden
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'main hall', 'garden entrance')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'garden entrance', 'main hall')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'garden entrance', 'garden proper')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'garden proper', 'garden entrance')
+INSERT INTO PASSAGE VALUES ('n', '', FALSE, FALSE, '', 'garden proper', 'fountain')
+INSERT INTO PASSAGE VALUES ('s', '', FALSE, FALSE, '', 'fountain', 'garden proper')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'garden proper', 'tool shed')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'tool shed', 'garden proper')
+
+-- Cellar
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'trophy room', 'riddle room')
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'riddle room', 'trophy room')
+
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'riddle room', 'well')
+INSERT INTO PASSAGE VALUES ('w', '', FALSE, FALSE, '', 'well', 'riddle room')
+
+INSERT INTO PASSAGE VALUES ('e', '', FALSE, FALSE, '', 'well', 'the end')
+
+
+-- OBJECT
+INSERT INTO PASSAGE VALUES ('Object_id', 'Description', 'Refname', 'Details', 'Location', Available BOOLEAN, Takeable BOOLEAN, Death BOOLEAN, 'Music', 'Location_id')
+INSERT INTO PASSAGE VALUES ('', '', '', '', '', TRUE, TRUE, FALSE, '', '')
+-- All objects
+INSERT INTO PASSAGE VALUES ('ladder', 'Old ladder', 'ladder', 'Old used wooden ladder', 'secret room', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('key1', '', 'key', '', 'dining hall', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('manifest', 'worn manifest', 'manifest', '', 'study', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('biography', '', 'biography', '', 'library', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('key2', '', 'key', '', 'library', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('lamp', 'rusty oil lamp', 'lamp', '', 'children*s room', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('clothes', '', 'clothes', '', 'children*s room', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('glimmer', 'Key to the cellar', 'glimmer', '', 'fountain', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('bucket', '', 'bucket', '', 'tool shed', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('rope', '', 'rope', '', 'tool shed', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('phone', '', 'phone', '', 'well', TRUE, TRUE, FALSE, '', '')
+INSERT INTO PASSAGE VALUES ('flashlight', '', 'flashlight', '', '', TRUE, TRUE, FALSE, '', '')
+
