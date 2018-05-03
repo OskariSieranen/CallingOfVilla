@@ -2,15 +2,16 @@
 
 import mysql.connector
 import time
-from termcolor import colored
+from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: use, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects
+# TODO: Commands: use, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects ADD elif for useStudyKey
+# TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
 
 def inventory():
     cur = db.cursor()
-    sql = "SELECT Object_Id, Description FROM Object WHERE Location = Player;"
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location = PLAYER;"
     cur.execute(sql)
     if cur.rowcount()>=1:
         print("I have: ")
@@ -22,8 +23,8 @@ def inventory():
 
 def light():
     cur = db.cursor()
-    sql = "SELECT Object_Id FROM Object WHERE Location = Player and Object_Id = Flashlight"
-    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = Player and Object_Id = Lamp"
+    sql = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = FLASHLIGHT"
+    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = LAMP"
     cur.execute(sql)
     if cur.rowcount()>=1:
         print("My flashlight is on.")
@@ -34,8 +35,8 @@ def light():
         print("My oil lamp is on.")
     
 
- ## AND SOURCE keskelle missä pelkkä AND??
-def move():
+ # AND SOURCE keskelle missä pelkkä AND??
+def move(location, destination):
     destination = location
     cur = db.cursor()
     sql ="SELECT Location FROM Passage WHERE Direction." + Direction + "AND" + location + "AND Locked=0"
@@ -60,19 +61,51 @@ def look():
 
 def getObject(target):
     cur = db.cursor()
-    sql = "UPDATE Object SET Location='Player', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=TRUE"
+    sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=TRUE;"
     cur.execute(sql)
     if cur.rowcount==1:
         print("I take the", target)
     else:
         print("I can't take that right now.")
 
+# Events here:
+def eventTrophyVoices():
+    print("My head feels light ... more voices..?")
+    cprint("...you boys hear about the servant girl?", 'magenta')
+    cprint("...the one caught stealing from the master?", 'cyan')
+    cprint("...I hear she is still hiding in that small room in the kitchen...", 'magenta')
+    cprint("...let's hope that she has learned her lesson...", 'cyan')
+    TrophyVoices = True
+def eventWalkwayVoices():
+    cprint("... once such a beautiful garden... I'll have to see what I can do about that... maybe you can visit sometime...", 'blue')
+    WalkwayVoices = True
+
+def eventQuestBedroomVoices():
+    cprint("... I'm feeling peckish... they always said that the answer can be found on your plate", 'blue')
+    QuestVoices = True
+
+
+
+# Use triggers:
+def useStudyKey():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='STUDYKEY' AND Location='PLAYER'"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Destination='STUDY';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("The key I had opened the study.")
+    else:
+        print("I can't do that now.")
+
+
+
 def playAudio():
     pygame.mixer.music.play()
 
 def stopAudio():
     pygame.mixer.music.stop()
-
 
 # Connection here
 # db = mysql.connector.connect(host="localhost",
@@ -139,19 +172,21 @@ house = colored('''
 ''','white')
 print(house)
 
-
 PlayerName = input("Give me your name: ")
-print("Your name is",PlayerName,"and you are an aspiring blogger going to explore and old abandoned mansion to record your journey for money and fame.")
+print("Your name is", PlayerName, "and you are an aspiring blogger going to explore and old abandoned mansion to record your journey for money and fame.")
 print("Your friend dropped of you at the edge of the forest and after a couple of hours of hiking, you have finally arrived at the old mansion.")
 print("You enter the once magnificent building and hear the giant double doors lock behind your back.")
 print("The old house seems creepier and creepier by the second, and you have to...")
 # time.sleep(17)
 print("... G E T  O U T...")
-location = "MAINHALL"
+print("I can hear a whispy voice around me... I can almost make out the words...")
+#time.sleep(3)
+cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
+location = "MAINHALL" 
 command = ""
 
 # Main Loop
-while command!="quit" and command!="exit" and location!="END":
+while command!="quit" and command!="exit" and location!="EXIT":
     print("")
     operation = input("What to do: ").split()
     # The user's command is taken
@@ -181,7 +216,8 @@ while command!="quit" and command!="exit" and location!="END":
         # if getOK==1:
             # Things appearing if get here.
 
-    # Movement
+    # Movement 
+    #TODO IS THAT QUEST BROOM SUPPOSED TO BE MASTER
     elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w" \
         or command=="nw" or command=="sw" or command=="ne" or command=="se" or command=="northwest" or command=="southwest" or command=="northeast" or command=="southeast" \
         or command=="up" or command=="u" or command=="down" or command=="d":
@@ -191,6 +227,13 @@ while command!="quit" and command!="exit" and location!="END":
         else:
             location = movedLocation
             look()
+        if location=="QUESTBEDROOM" and QuestVoices==False:
+            eventQuestBedroomVoices()
+        if location=="WALKWAYBATH" and WalkwayVoices==False:
+            eventWalkwayVoices()
+        if location=="TROPHYROOM" and TrophyVoices==False:
+            eventTrophyVoices()
+
 
     # Light command
     elif command=="light" or command=="l":
