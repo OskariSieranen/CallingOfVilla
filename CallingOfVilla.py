@@ -48,7 +48,7 @@ def move(location, direction):
         direction = location
     return direction
 
-# Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
+#TODO Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
 def look():
     cur = db.cursor()
     sql = "SELECT Description, Details FROM Location WHERE Location_Id='" + location + "';"
@@ -202,11 +202,12 @@ print("You enter the once magnificent building and hear the giant double doors l
 print("The old house seems creepier and creepier by the second, and you have to...")
 # time.sleep(17)
 print("... G E T  O U T...")
+print("\n")
 print("I can hear a whispy voice around me... I can almost make out the words...")
 #time.sleep(3)
-print("")
 cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
-location = "MAINHALL" 
+location = "MAINHALL"
+look() 
 command = ""
 
 # Main Loop 
