@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: use, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects ADD elif for useStudyKey
+# TODO: Commands: use, talk, , quit, restart?, (save, load,) look at / for objects ADD elif for useStudyKey
 # TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
 # TODO: Configure the take commands correctly
 
@@ -69,13 +69,20 @@ def eatObject(target):
 
 def readObject(target):
     cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
+    sql = "SELECT Object WHERE Object_Id='NEWSPAPER' OR Object_Id='MANIFEST' OR Object_Id='BIOGRAPHY';"
+    #sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
     cur.execute(sql)
-    if cur.rowcount==1 and target==newspaper:
-        print("Hmm what does it say?", target)
-    elif cur.rowcount==1 and target==biography:
+    if cur.rowcount>=1 and target==newspaper and location=="STUDY":
+        sql = "SELECT Details FROM Object WHERE Object_Id='NEWSPAPER'"
+        newspaperText = cur.execute(sql)
+        print("Hmm what does it say?", newspaperText)
+    elif cur.rowcount>=1 and target==biography and location=="LIBRARY":
         print("Hmm what is this?" , "Major depressive disorder descended upon writer" ,PlayerName, "during their college and young professional days, after a lifetime of loneliness and longing for family. Like many individuals suffering from this agonizingly common condition, she turned towards substance abuse and even a suicide attempt as a means of self-medicating. But a combination of steel will and a determined doctor set Wurtzel back on the difficult road to recovery.")
         print("What the hell is going on???")
+    elif cur.rowcount>=1 and target==manifest and location=="STUDY":
+        sql = "SELECT Details FROM Object WHERE Object_Id='MANIFEST'"
+        manifestText = cur.execute(sql)
+        print("It's and old manifest of the books in the library. It's mostly destroyed by time, but I can still make out", manifestText)
     else:
         print("There is nothing to read.")
 
@@ -116,7 +123,26 @@ def eventAtticVoices():
     cprint("...mhmhmhmhmhmhmmhhmmhmhm...", 'yellow')
     #time.sleep(3)
     cprint("...I hope so too...", 'cyan')
+# Take triggers:
+def takeLadder():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='LADDER'"
+    cur.execute(sql)
 
+def takeStudyKey():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='STUDYKEY'"
+    cur.execute()
+
+def takeAtticKey():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='ATTICKEY'"
+    cur.execute(sql)
+
+def takeGlimmer():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='GLIMMER'"
+    cur.execute(sql)
 
 # Use triggers:
 def useStudyKey():
@@ -324,6 +350,9 @@ while command!="quit" and command!="exit" and location!="EXIT":
     # Light command
     elif command=="light":
         light()
+
+    elif command=="read" and target!="":
+        readObject(target)
 
     # elif command=="darkness" and location=="RIDDLEROOM":
     #     #open door to final room
