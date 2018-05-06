@@ -445,13 +445,13 @@ while command!="quit" and command!="exit" and location!="EXIT":
             print("I can see some light coming from the Chidlren's Room.")
 
     #Might work, tbc
-    #elif command=="restart":
-    #   db.rollback()
-    #   command = ""
-    #   location = "MAINHALL"
-    # init()
+    elif command=="restart":
+      db.rollback()
+      command = ""
+      location = "MAINHALL"
+      look()
+   
     # Light command
-    
     elif command=="darkness" and location=="RIDDLEROOM":
         eventRiddleDoorOpening()
 
