@@ -163,10 +163,10 @@ def useStudyKey():
     cur = db.cursor()
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='STUDYKEY' AND Location='PLAYER';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Direction='STUDY';"
         cur.execute(sql)
-        if cur.rowcount()>=1:
+        if cur.rowcount>=1:
             print("The key I had opened the study.")
     else:
         print("I can't do that now.")
@@ -175,10 +175,10 @@ def useAtticKey():
     cur = db.cursor()
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='ATTICKEY' AND Location='PLAYER';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Direction='ATTIC';"
         cur.execute(sql)
-        if cur.rowcount()>=1:
+        if cur.rowcount>=1:
             print("The key I had opened the door to the attic.")
         else:
             print("I can't do that now.")
@@ -187,10 +187,10 @@ def useGlimmer():
     cur = db.cursor()
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='GLIMMER' AND Location='PLAYER';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='TROPHYROOM' AND Direction='RIDDLEROOM';"
         cur.execute(sql)
-        if cur.rowcount()>=1:
+        if cur.rowcount>=1:
             print("The key I had opened the door to the Basement.")
         else:
             print("I can't do that now.")
@@ -262,7 +262,7 @@ pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
 
-WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = False
+WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = Flashlight = False
 lightSource = True                
 # Initializing the emptyscreen, loading titles and resetting the location
 print("\n"*1000)
@@ -327,7 +327,7 @@ print("\n")
 print("I can hear a whispy voice around me... I can almost make out the words...")
 #time.sleep(3)
 cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
-location = "MAINHALL"
+location = "MIDDLEROOM"
 look() 
 command = ""
 
