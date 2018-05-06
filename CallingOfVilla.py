@@ -317,13 +317,16 @@ while command!="quit" and command!="exit" and location!="EXIT":
         if location=="TROPHYROOM" and TrophyVoices==False:
             eventTrophyVoices()
             TrophyVoices = True
-        if locaiton=="ATTIC" and AtticVoices==False:
+        if location=="ATTIC" and AtticVoices==False:
             eventAtticVoices()
             AtticVoices = True
 
     # Light command
     elif command=="light":
         light()
+
+    # elif command=="darkness" and location=="RIDDLEROOM":
+    #     #open door to final room
 
     # Audio Commands
     elif command=="play":
