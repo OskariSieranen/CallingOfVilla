@@ -129,34 +129,35 @@ def eventQuestBedroomFall():
     time.sleep(3)
     print("DAMN... I fell and now my clothes are all covered in something sticky...")
 # Take triggers:
-def takeLadder():
-    cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='LADDER'"
-    cur.execute(sql)
+# def takeLadder():
+#     cur = db.cursor()
+#     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='LADDER'"
+#     cur.execute(sql)
 
-def takeStudyKey():
-    cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='STUDYKEY'"
-    cur.execute()
+# def takeStudyKey():
+#     cur = db.cursor()
+#     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='STUDYKEY'"
+#     cur.execute(sql)
 
-def takeAtticKey():
-    cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='ATTICKEY'"
-    cur.execute(sql)
+# def takeAtticKey():
+#     cur = db.cursor()
+#     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='ATTICKEY'"
+#     cur.execute(sql)
 
-def takeGlimmer():
-    cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='GLIMMER'"
-    cur.execute(sql)
+# def takeGlimmer():
+#     cur = db.cursor()
+#     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='GLIMMER'"
+#     cur.execute(sql)
 
-def takeBucket():
-    cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='BUCKET'"
-    cur.execute(sql)
+# def takeBucket():
+#     cur = db.cursor()
+#     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='BUCKET'"
+#     cur.execute(sql)
 
-def takeLamp():
-    cur = db.cursor()
-    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='LAMP'"
+# def takeLamp():
+#     cur = db.cursor()
+#     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='LAMP'"
+#     cur.execute(sql)
 
 # Use triggers:
 def useStudyKey():
@@ -200,12 +201,13 @@ def useLadder():
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='LADDER' AND Location='PLAYER';"
     cur.execute(sql)
     if cur.rowcount>=1:
-        sql2 = "UPDATE Passage SET Locked='FALSE' WHERE StartLocation='MAINHALL' AND Direction='MIDDLEROOM';"
+        sql2 = "UPDATE Passage SET Locked='FALSE' WHERE StartLocation='MAINHALL' AND Destination='MIDDLEROOM';"
         cur.execute(sql2)
-        if cur.rowcount>=1:
-            print("I finally got to the second floor.")
-        else:
-            print("I can't do that now.")
+        print("I can now get to the second floor.")
+        # if cur.rowcount>=1:
+        #     print("I finally got to the second floor.")
+        # else:
+        #     print("I can't do that now.")
 
 def useAtticSwitch():
     cur = db.cursor()
@@ -361,15 +363,15 @@ while command!="quit" and command!="exit" and location!="EXIT":
     # Taking objects 
     elif command=="take" or command=="get" and target!="":
         getOK = getObject(target)
-        if getOK==1:
-            if location=="SECRETROOM" and target=="ladder":
-                takeLadder()
-            elif location=="DININGHALL" and target=="key":
-                takeStudyKey()
-            elif location=="LIBRARY" and target=="key":
-                takeAtticKey()
-            elif location=="FOUNTAIN" and target=="key":
-                takeGlimmer()
+        # if getOK==1:
+            # if location=="SECRETROOM" and target=="ladder":
+            #     takeLadder()
+            # elif location=="DININGHALL" and target=="key":
+            #     takeStudyKey()
+            # elif location=="LIBRARY" and target=="key":
+            #     takeAtticKey()
+            # elif location=="FOUNTAIN" and target=="key":
+            #     takeGlimmer()
 
     elif command=="use":
         if target=="":
