@@ -58,6 +58,27 @@ def look():
         if (row[1]!=""):
             print(row[1])
 
+def eatObject(target):
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
+    cur.execute(sql)
+    if cur.rowcount==1 and target==newspaper or target==food or target==pillow:
+        print("I will eat", target)
+    else:
+        print("I can't eat that.")
+
+def readObject(target):
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
+    cur.execute(sql)
+    if cur.rowcount==1 and target==newspaper:
+        print("Hmm what does it say?", target)
+    elif cur.rowcount==1 and target==biography:
+        print("Hmm what is this?" , "Major depressive disorder descended upon writer" ,PlayerName, "during their college and young professional days, after a lifetime of loneliness and longing for family. Like many individuals suffering from this agonizingly common condition, she turned towards substance abuse and even a suicide attempt as a means of self-medicating. But a combination of steel will and a determined doctor set Wurtzel back on the difficult road to recovery.")
+        print("What the hell is going on???")
+    else:
+        print("There is nothing to read.")
+
 def getObject(target):
     cur = db.cursor()
     sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=TRUE;"
@@ -119,6 +140,30 @@ def useAtticKey():
         cur.execute(sql)
         if cur.rowcount()>=1:
             print("The key I had opened the door to the attic.")
+        else:
+            print("I can't do that now.")
+            
+def useGlimmer():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='GLIMMER' AND Location='PLAYER';"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='TROPHYROOM' AND Direction='RIDDLEROOM';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("The key I had opened the door to the Basement.")
+        else:
+            print("I can't do that now.")
+
+def useLadder():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='LADDER' AND Location='PLAYER';"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Direction='MIDDLEROOM';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("I finally got to the second floor.")
         else:
             print("I can't do that now.")
 
