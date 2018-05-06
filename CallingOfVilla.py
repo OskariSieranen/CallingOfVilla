@@ -93,7 +93,7 @@ def getObject(target):
     sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=TRUE;"
     cur.execute(sql)
     if cur.rowcount==1:
-        print("I take the", target)
+        print("I now have", target," with me")
     else:
         print("I can't take that right now.")
 
