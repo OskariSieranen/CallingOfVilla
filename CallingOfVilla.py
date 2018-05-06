@@ -270,7 +270,7 @@ db = mysql.connector.connect(host="localhost",
 # Initializing the music
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load('TestSong.wav')
+pygame.mixer.music.load('Theme.wav')
 pygame.mixer.music.play()
 
 # Initializing the emptyscreen, loading titles and resetting the location
