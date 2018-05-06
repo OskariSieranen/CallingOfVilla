@@ -110,7 +110,7 @@ def eventWalkwayVoices():
     cprint("... once such a beautiful garden... I'll have to see what I can do about that... maybe you can visit sometime...", 'blue')
     
 def eventMasterBedroomVoices():
-    cprint("... I'm feeling peckish... they always said that the answer can be found on your plate", 'blue')
+    cprint("... I'm feeling peckish... they always said that the answer can be found on your plate...", 'blue')
 
 def eventAtticVoices():
     cprint("...I wonder if he is ok...", 'cyan')
@@ -164,7 +164,7 @@ def useStudyKey():
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='STUDYKEY' AND Location='PLAYER';"
     cur.execute(sql)
     if cur.rowcount>=1:
-        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Direction='STUDY';"
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Destination='STUDY';"
         cur.execute(sql)
         if cur.rowcount>=1:
             print("The key I had opened the study.")
@@ -176,7 +176,7 @@ def useAtticKey():
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='ATTICKEY' AND Location='PLAYER';"
     cur.execute(sql)
     if cur.rowcount>=1:
-        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Direction='ATTIC';"
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Destination='ATTIC';"
         cur.execute(sql)
         if cur.rowcount>=1:
             print("The key I had opened the door to the attic.")
@@ -188,7 +188,7 @@ def useGlimmer():
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='GLIMMER' AND Location='PLAYER';"
     cur.execute(sql)
     if cur.rowcount>=1:
-        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='TROPHYROOM' AND Direction='RIDDLEROOM';"
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='TROPHYROOM' AND Destination='RIDDLEROOM';"
         cur.execute(sql)
         if cur.rowcount>=1:
             print("The key I had opened the door to the Basement.")
@@ -210,7 +210,7 @@ def useLadder():
 
 def useAtticSwitch():
     cur = db.cursor()
-    sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND direction='GARDENENTRANCE';"
+    sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE';"
     cur.execute(sql)
     print("I hear rumbling from downstairs...")
     location = "MAINHALL"
@@ -376,9 +376,9 @@ while command!="quit" and command!="exit" and location!="EXIT":
             print("I don't know what to use.")
         elif location=="MAINHALL" and target=="ladder":
             useLadder()
-        elif location=="HALLWAY" and target=="studykey":
+        elif location=="HALLWAY" and target=="key":
             useStudyKey()
-        elif location=="LIBRARY" and target=="attickey":
+        elif location=="LIBRARY" and target=="key":
             useAtticKey()
         elif location=="ATTIC" and target=="switch":
             useAtticSwitch()
