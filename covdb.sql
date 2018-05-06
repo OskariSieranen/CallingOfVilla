@@ -162,8 +162,10 @@ INSERT INTO Object VALUES ('LAMP', 'Rusty oil lamp', 'lamp', 'Rusty oil lamp wit
 INSERT INTO Object VALUES ('CLOTHES', 'Old clothes to wear', 'clothes', 'Old and darkish worn out clothes', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('GLIMMER', 'Key to the cellar', 'glimmer', 'Glimmering and rusty iron key', 'FOUNTAIN', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('BUCKET', 'Wooden bucket', 'bucket', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('ROPE', 'W', 'rope', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('PHONE', 'Old an reliable NOKIA 3310', 'phone', 'NOKIA 3310. Possible to use as a weapon and call after 1 year without charging. Better than a brick', 'WELL', '', FALSE, TRUE, FALSE, 
-'');
-INSERT INTO Object VALUES ('FLASHLIGHT', '', 'flashlight', '', 'PLAYER', '', TRUE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('ROPE', 'Old rope', 'rope', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('PHONE', 'Old an reliable NOKIA 3310', 'phone', 'NOKIA 3310. Possible to use as a weapon and call after 1 year without charging. Better than a brick', 'WELL', '', FALSE, TRUE, FALSE,'');
+INSERT INTO Object VALUES ('FLASHLIGHT', 'Convoy S2+ LED Flashlight ', 'flashlight', '', 'PLAYER', '', TRUE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('FOOD', 'A traditional braised beef stew with thick, rich gravy. It looks so fresh..', 'food', '', 'KITCHEN', '', TRUE, FALSE, TRUE, '');
+INSERT INTO Object VALUES ('NEWSPAPER', 'May 19th, 1874. A small child was the only one who survived a terrible fire in Lottersbyck Mansion. The child is badly traumatized..', 'newspaper', '', 'STUDY', '', TRUE, FALSE, TRUE, '');
+INSERT INTO Object VALUES ('PILLOW', 'A Soft white pillow', 'pillow', '', 'MASTERBEDROOM', '', TRUE, FALSE, TRUE, '');
 
