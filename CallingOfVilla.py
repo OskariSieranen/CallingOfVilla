@@ -144,6 +144,11 @@ def takeGlimmer():
     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='GLIMMER'"
     cur.execute(sql)
 
+def takeBucket():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='BUCKET'"
+    cur.execute(sql)
+
 # Use triggers:
 def useStudyKey():
     cur = db.cursor()
@@ -202,6 +207,11 @@ def useAtticSwitch():
     look()
     print(" It seems that the switch moved the statue, revealing a door behind it...")
 
+def loseFlashlight():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='DEATHROOM' , Available='False' , Takeable='False' WHERE Object_Id='FLASHLIGHT'"
+    cur.execute(sql)
+    lightSource=False
 
 def playAudio():
     pygame.mixer.music.play()
@@ -353,6 +363,8 @@ while command!="quit" and command!="exit" and location!="EXIT":
         if location=="ATTIC" and AtticVoices==False:
             eventAtticVoices()
             AtticVoices = True
+        if location=="BATHROOM" and Flashlight==False:
+            loseFlashlight()
 
     # Light command
     elif command=="light":
