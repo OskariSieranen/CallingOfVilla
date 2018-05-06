@@ -91,7 +91,7 @@ INSERT INTO Passage VALUES ('e', '', '', FALSE, FALSE, '', 'MAINHALL', 'DININGHA
 INSERT INTO Passage VALUES ('w', '', '', FALSE, FALSE, '', 'DININGHALL', 'MAINHALL');
 INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'DININGHALL', 'KITCHEN');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'KITCHEN', 'DININGHALL');
-INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'KITCHEN', 'SECRETROOM');
+INSERT INTO Passage VALUES ('w', '', '', FALSE, FALSE, '', 'KITCHEN', 'SECRETROOM');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'SECRETROOM', 'KITCHEN');
 
 INSERT INTO Passage VALUES ('u', 'I can''t go up to the second floor', '', TRUE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
@@ -132,7 +132,7 @@ INSERT INTO Passage VALUES ('s', 'Attic is locked', '', TRUE, FALSE, '', 'HALLWA
 INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'ATTIC', 'HALLWAY');
 
 -- Garden
-INSERT INTO Passage VALUES ('n', '', 'You died because of statue fell on you', FALSE, TRUE, '', 'MAINHALL', 'GARDENENTRANCE');
+INSERT INTO Passage VALUES ('n', '', 'A statue fell on you', FALSE, TRUE, '', 'MAINHALL', 'GARDENENTRANCE');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'GARDENENTRANCE', 'MAINHALL');
 INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'GARDENENTRANCE', 'GARDENPROPER');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'GARDENPROPER', 'GARDENENTRANCE');
