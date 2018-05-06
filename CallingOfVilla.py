@@ -6,9 +6,8 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: inspect object?
-# TODO: add appearing of keys to the dining hall and library Fix eat triggers int he command chain, 
-# TODO: CHILDRESN ROOM LIGHT SHIT ADD TEXT TO GLIMMER  ELIF EMTPY USE
+# TODO: Commands: inspect object?t
+# TODO: add appearing of keys to the dining hall and library Fix 
 
 def inventory():
     cur = db.cursor()
@@ -63,7 +62,7 @@ def eatObject(target):
     sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
     cur.execute(sql)
     if cur.rowcount==1 and target=="newspaper" or target=="food" or target=="pillow":
-        print("I will eat", target)
+        print("I ate", target)
     else:
         print("I can't eat that.")
 
@@ -345,7 +344,7 @@ look()
 
 # Main Loop 
 # If player has no lightsource, add a line after each loop that says 'It is so dark in here'
-while command!="quit" and command!="exit" and location!="EXIT":
+while command!="quit" and command!="exit" and location!="THEEND":
     print("")
     operation = input("What to do: ").split()
     # The user's command is taken
@@ -402,7 +401,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
         elif location=="WELL" and target=="bucket":
             useBucket()
         else:
-            print("I can't do that.")
+            print("I can't use that")
         
 
     # Movement 
@@ -463,8 +462,18 @@ while command!="quit" and command!="exit" and location!="EXIT":
     elif command=="read" and target!="":
         readObject(target)
 
-    # elif command=="darkness" and location=="RIDDLEROOM":
-    #     #open door to final room
+    elif command=="eat" and target!="":
+        eatObject(target)
+        if target=="food":
+            print("Why did you think that was fine? It's been sitting there for god knows how long!")
+            command="quit"
+        if target=="pillow":
+            print("Yuck")
+        if target=="newspaper":
+            print("Enlightening!")
+            print("Also slightly poisonous")
+            command="quit"
+        
 
     # Audio Commands
     elif command=="play":
@@ -479,8 +488,11 @@ while command!="quit" and command!="exit" and location!="EXIT":
     
    
 
-if (location=="EXIT"):
-    print("") # Victory speech here
+if (location=="THEEND"):
+    print("You managed to make it out alive.")
+    print("But your adventure is just starting.")
+    print("Thank you for playing episode one of Calling of Villa! If you would like to play some more, please send as much money as you want.")
+    print("Visit us at users.metropolia.fi/~oskarits/WebPage") 
 else:
     print("Don't be gone too long...")
     time.sleep(3)
