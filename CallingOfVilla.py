@@ -328,7 +328,7 @@ print("\n")
 print("I can hear a whispy voice around me... I can almost make out the words...")
 #time.sleep(3)
 cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
-location = "MIDDLEROOM"
+location = "MAINHALL"
 look() 
 command = ""
 

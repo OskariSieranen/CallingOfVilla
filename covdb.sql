@@ -94,7 +94,7 @@ INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'KITCHEN', 'DININGHAL
 INSERT INTO Passage VALUES ('w', '', '', FALSE, FALSE, '', 'KITCHEN', 'SECRETROOM');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'SECRETROOM', 'KITCHEN');
 
-INSERT INTO Passage VALUES ('u', '', '', FALSE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
+INSERT INTO Passage VALUES ('u', '', '', TRUE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
 INSERT INTO Passage VALUES ('d', '', '', FALSE, FALSE, '', 'MIDDLEROOM', 'MAINHALL');
 --INSERT INTO Passage VALUES ('ne', 'I can''t go up to the second floor', '', TRUE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
 --INSERT INTO Passage VALUES ('sw', '', '', FALSE, FALSE, '', 'MIDDLEROOM', 'MAINHALL');
