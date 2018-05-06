@@ -239,7 +239,7 @@ def stopAudio():
 db = mysql.connector.connect(host="localhost",
                            user="root",
                            passwd="MountainDiscoLadder",
-                           db="cov",
+                           db="covdb",
                            buffered=True)
 
 # Initializing the music
