@@ -56,6 +56,20 @@ def look():
         print (row[0])
         if (row[1]!=""):
             print(row[1])
+            showObjects()
+
+def showObjects():
+    cur = db.cursor()
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location ='" + location + "';"
+    cur.execute(sql)
+    res = cur.fetchall()
+    if cur.rowcount>=1:
+        print("These objects are in this room: ")
+        for item in res:
+            print("- " + item[0])
+    else:
+        print("There is no objects in this room.")
+
 
 def eatObject(target):
     cur = db.cursor()
