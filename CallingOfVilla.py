@@ -6,9 +6,8 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: talk , restart?, (save, load,) look at / for objects ADD elif for useStudyKey
-# TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
-# TODO: Configure the take commands correctly
+# TODO: Commands: talk? ,, (save, load,) look at / for objects ADD elif for useStudyKey
+# TODO: Voices for the hallway urging the player to eat the food in the kitchen
 
 def inventory():
     cur = db.cursor()
@@ -280,8 +279,10 @@ pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
-             
+
 # Initializing the emptyscreen, loading titles and resetting the location
+location = "MAINHALL"
+command = ""
 print("\n"*1000)
 logo =colored('''
  _______  _______  _        _       _________ _        _______    _______  _______            _________ _        _        _______ 
@@ -403,7 +404,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
             location = movedLocation
             look()
         if location=="MASTERBEDROOM" and QuestVoices==False:
-            eventQuestBedroomVoices()
+            eventMasterBedroomVoices()()
             QuestVoices = True
         if location=="WALKWAYBATH" and WalkwayVoices==False:
             eventWalkwayVoices()
@@ -425,6 +426,9 @@ while command!="quit" and command!="exit" and location!="EXIT":
         if location=="ATTIC" and oilBody==True:
             deathByTrip()
 
+    elif command=="restart":
+        db.rollback()
+        init()
     # Light command
     elif command=="light":
         light()

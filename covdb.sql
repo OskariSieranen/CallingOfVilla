@@ -46,39 +46,44 @@ CREATE TABLE Passage
 -- LOCATION
 INSERT INTO Location VALUES ('PLAYER', 'I have ', '', '');
 -- First floor
-INSERT INTO Location VALUES ('MAINHALL', 'main hall', 'There are large statue of a man with face hidden by moss. There are also two sets of stairs going to the second floor, the rightmost ones being broken', '');
-INSERT INTO Location VALUES ('LIBRARY', 'library', 'There are broken book pieces scattered around room, but some random bits and pieces can still be read from some volumes', '');
-INSERT INTO Location VALUES ('TROPHYROOM', 'trophy room', 'There are all kinds of stuffes animals their eyes seem to always one around', '');
-INSERT INTO Location VALUES ('DININGHALL', 'dining hall', 'There are large wooden dining table, still set from the last time it was used', '');
-INSERT INTO Location VALUES ('KITCHEN', 'kitchen', 'The kitchen looks clean, it was clear that the workers were very organized', '');
-INSERT INTO Location VALUES ('SECRETROOM', 'hidden servant''s room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
+INSERT INTO Location VALUES ('MAINHALL', 'Main hall', 'There is a large statue of a man with his face hidden by moss. There are also two sets of stairs going to the second floor, the rightmost ones being broken', '');
+INSERT INTO Location VALUES ('LIBRARY', 'Library', 'There are destroyed books laying around everywhere.', '');
+INSERT INTO Location VALUES ('TROPHYROOM', 'Trophy Room', 'There are all kinds of stuffed animal heads. Their eyes seem to always you around.', '');
+INSERT INTO Location VALUES ('DININGHALL', 'Dining Hall', 'There is large wooden dining table, still set from the last time it was used.', '');
+INSERT INTO Location VALUES ('KITCHEN', 'Kitchen', 'The kitchen looks clean, it was clear that the workers were very organized.', '');
+INSERT INTO Location VALUES ('SECRETROOM', 'Hidden Servant''s Room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
 
 -- Second floor
-INSERT INTO Location VALUES ('HALLWAY', 'hallway', 'The hallway is best lit so far, featuring large window owerlooking the decrepit garden', '');
-INSERT INTO Location VALUES ('QUESTBEDROOM', 'quest bedroom', 'The guest bedroom is the direct opposite of the master bedroom, having half of the ceiling collapsed on the room, making it unusable for anything', '');
-INSERT INTO Location VALUES ('MASTERBEDROOM', 'master bedroom', 'The master bedroom has inexplicably survived, looking how one would expect the house’s lord’s bedroom to look', '');
-INSERT INTO Location VALUES ('STUDY', 'study', '', '');
-INSERT INTO Location VALUES ('CHILDRENSROOM', 'children''s room', 'The children’s room is at start almost as horrid as the guest bedroom', '');
-INSERT INTO Location VALUES ('MIDDLEROOM', 'middle room', 'There are fully broken stairs down', '');
-INSERT INTO Location VALUES ('WALKWAYBATH', 'walkway to the bathroom', 'From the window you see the dead garden', '');
-INSERT INTO Location VALUES ('BATHROOM', 'bathroom', 'The bathroom has seen better days, looking generally very sticky', '');
-INSERT INTO Location VALUES ('NOFLOORROOM1', 'room with minimal amount of floor at the door', '', '');
-INSERT INTO Location VALUES ('NOFLOORROOM2', 'room with minimal amount of floor at the door', '', '');
+INSERT INTO Location VALUES ('HALLWAY', 'Hallway', 'The hallway is best lit place here so far, featuring large paintings hanging on the walls.', '');
+INSERT INTO Location VALUES ('QUESTBEDROOM', 'Quest Bedroom', 'The guest bedroom is the direct opposite of the master bedroom, having half of the ceiling collapsed on the room, making it unusable for anything', '');
+INSERT INTO Location VALUES ('MASTERBEDROOM', 'Master Bedroom', 'The master bedroom has inexplicably survived, looking how one would expect the house’s lord’s bedroom to look.', '');
+INSERT INTO Location VALUES ('STUDY', 'Study', 'The study is almost fully covered in moss, except for a large work desk at the back of the room.', '');
+INSERT INTO Location VALUES ('CHILDRENSROOM', 'Children''s Room', 'The children’s room is in unbelievebly good shape. It looks like it has never been used.', '');
+INSERT INTO Location VALUES ('MIDDLEROOM', 'Middle Room', 'There are fully broken stairs down.', '');
+INSERT INTO Location VALUES ('WALKWAYBATH', 'Walkway', 'From the window you see the dead garden.', '');
+INSERT INTO Location VALUES ('BATHROOM', 'Bathroom', 'The bathroom has seen better days, looking generally very sticky.', '');
+INSERT INTO Location VALUES ('NOFLOORROOM1', 'room with minimal amount of floor at the door.', '', '');
+INSERT INTO Location VALUES ('NOFLOORROOM2', 'room with minimal amount of floor at the door.', '', '');
 INSERT INTO Location VALUES ('DEATHROOM', 'I DIED', '', '');
 
 -- Attic
-INSERT INTO Location VALUES ('ATTIC', 'attic', 'Everything in the attic is covered in dust. In the middle of the room, there is a switch. Illuminating the room is a big round window overlooking the entrance to the house', '');
+INSERT INTO Location VALUES ('ATTIC', 'Attic', 'Everything in the attic is covered in dust. In the middle of the room, there is a switch. Illuminating the room is a big round window overlooking the entrance to the house.', '');
 
 -- Garden
-INSERT INTO Location VALUES ('GARDENENTRANCE', 'garden entrance', 'The garden is in full bloom and looks well kept', '');
-INSERT INTO Location VALUES ('GARDENPROPER', 'garden proper', 'It''s dark and moist', '');
-INSERT INTO Location VALUES ('TOOLSHED', 'tool shed', 'The shed is small and full of spiders', '');
-INSERT INTO Location VALUES ('FOUNTAIN', 'I am near fountain', 'There is giant fountain in front of you', '');
+INSERT INTO Location VALUES ('GARDENENTRANCE', 'Garden Entrance', 'The garden is in full bloom and looks well kept.', '');
+INSERT INTO Location VALUES ('GARDENPROPER', 'Garden Proper', 'It''s amazingly beautiful, with all different kinds of plants surrouding you.', '');
+INSERT INTO Location VALUES ('TOOLSHED', 'Tool Shed', 'The shed is small and full of spiders.', '');
+INSERT INTO Location VALUES ('FOUNTAIN', 'Area around the fountain', 'There is giant fountain in front of you. It looks like it has just been polished.', '');
 
 -- Cellar
-INSERT INTO Location VALUES ('RIDDLEROOM', 'room full of puzzles', 'wordplay', '');
-INSERT INTO Location VALUES ('WELL', 'room with the well', 'There looks to be some light at the bottom of well', '');
-INSERT INTO Location VALUES ('THEEND', 'I am in a nice opening of forest', 'I see behind me hidden entrance to the psychiatric hospital and in front of you big forest', '');
+INSERT INTO Location VALUES ('RIDDLEROOM', 'Room With A Riddle On The Wall', 'A dark room, with "It cannot be seen, cannot be felt,
+Cannot be heard, cannot be smelt.
+It lies behind stars and under hills,
+And empty holes it fills.
+It comes first and follows after,
+Ends life, kills laughter." written on the wall.', '');
+INSERT INTO Location VALUES ('WELL', 'Room With The Well', 'A dark room, with a well in the middle of it. It looks like there is something inside...', '');
+INSERT INTO Location VALUES ('THEEND', 'Nice Clearing Of The Forest', 'Behind me there is a hidden entrace to the psychiatric hospital, in front of me there is large forest clearing. ', '');
 INSERT INTO Location VALUES ('EXIT', '', '', '');
 
 -- PASSAGE
@@ -155,12 +160,12 @@ INSERT INTO Passage VALUES ('e', 'I can''t go', '', TRUE, FALSE, '', 'WELL', 'TH
 -- All objects
 INSERT INTO Object VALUES ('LADDER', 'Old ladder', 'ladder', 'Old used wooden ladder', 'SECRETROOM', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('STUDYKEY', 'Key to the study', 'key', 'Beatifully engraved iron key', 'DININGHALL', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('MANIFEST', 'Worn manifest', 'manifest', '', 'STUDY', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('MANIFEST', 'Worn manifest featuring list of all the books of the library', 'manifest', '', 'STUDY', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('BIOGRAPHY', '', 'biography', '', 'LIBRARY', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('ATTICKEY', 'Key to the attic', 'key', 'Old sturdy iron key', 'LIBRARY', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('LAMP', 'Rusty oil lamp', 'lamp', 'Rusty oil lamp with small amount of oil inside', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('CLOTHES', 'Old clothes to wear', 'clothes', 'Old and darkish worn out clothes', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('GLIMMER', 'Key to the cellar', 'glimmer', 'Glimmering and rusty iron key', 'FOUNTAIN', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('CLOTHES', 'Old clothes to wear', 'clothes', 'Clean pure white clothes', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('GLIMMER', 'Key to the cellar', 'glimmer', 'A small shiny key', 'FOUNTAIN', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('BUCKET', '', 'bucket', 'Wooden bucket with some rope attached to it', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('ROPE', 'Old rope', 'rope', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('PHONE', 'Old an reliable NOKIA 3310', 'phone', 'NOKIA 3310. Possible to use as a weapon and call after 1 year without charging. Better than a brick', 'WELL', '', FALSE, TRUE, FALSE,'');
