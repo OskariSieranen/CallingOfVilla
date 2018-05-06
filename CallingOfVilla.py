@@ -154,6 +154,10 @@ def takeBucket():
     sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='BUCKET'"
     cur.execute(sql)
 
+def takeLamp():
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER' , Available='False' WHERE Object_Id='LAMP'"
+
 # Use triggers:
 def useStudyKey():
     cur = db.cursor()
@@ -216,6 +220,14 @@ def loseFlashlight():
     cur = db.cursor()
     sql = "UPDATE Object SET Location='DEATHROOM' , Available='False' , Takeable='False' WHERE Object_Id='FLASHLIGHT'"
     cur.execute(sql)
+
+def deathByFire():
+    print("Your oily clothes burn you alive. Maybe you should have considered that before lighting an oil lamp.")
+    command="quit"
+
+def deathByTrip():
+    print("Your long robes trip you up on the steep stairs and you fall snapping your neck. Maybe illuminate your way next time.")
+    command="quit"
     
 def playAudio():
     pygame.mixer.music.play()
@@ -380,6 +392,10 @@ while command!="quit" and command!="exit" and location!="EXIT":
         if location=="QUESTBEDROOM" and lightSource==False:
             eventQuestBedroomFall()
             oilBody = True
+        if location=="ATTIC" and lightSource==False:
+            deathByTrip()
+        if location=="ATTIC" and oilBody==True:
+            deathByTrip()
 
     # Light command
     elif command=="light":

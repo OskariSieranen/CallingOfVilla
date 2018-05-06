@@ -1,6 +1,6 @@
 ﻿DROP TABLE IF EXISTS Passage;
 DROP TABLE IF EXISTS Object;
-DROP TABLE IF EXISTS Location
+DROP TABLE IF EXISTS Location;
 
 CREATE TABLE Location
 (
@@ -165,7 +165,7 @@ INSERT INTO Object VALUES ('BUCKET', 'Wooden bucket with some rope attached to i
 INSERT INTO Object VALUES ('ROPE', 'Old rope', 'rope', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('PHONE', 'Old an reliable NOKIA 3310', 'phone', 'NOKIA 3310. Possible to use as a weapon and call after 1 year without charging. Better than a brick', 'WELL', '', FALSE, TRUE, FALSE,'');
 INSERT INTO Object VALUES ('FLASHLIGHT', 'Convoy S2+ LED Flashlight ', 'flashlight', '', 'PLAYER', '', TRUE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('FOOD', 'A traditional braised beef stew with thick, rich gravy. It looks so fresh..', 'food', '', 'KITCHEN', '', TRUE, FALSE, TRUE, '');
-INSERT INTO Object VALUES ('NEWSPAPER', 'May 19th, 1874. A small child was the only one who survived a terrible fire in Lottersbyck Mansion. The child is badly traumatized..', 'newspaper', '', 'STUDY', '', TRUE, FALSE, TRUE, '');
+INSERT INTO Object VALUES ('FOOD', '', 'food', 'A traditional braised beef stew with thick, rich gravy. It looks so fresh..', 'KITCHEN', '', TRUE, FALSE, TRUE, '');
+INSERT INTO Object VALUES ('NEWSPAPER', '', 'newspaper', 'May 19th, 1874. A small child was the only one who survived a terrible fire in Lottersbyck Mansion. The child is badly traumatized..', 'STUDY', '', TRUE, FALSE, TRUE, '');
 INSERT INTO Object VALUES ('PILLOW', 'A Soft white pillow', 'pillow', '', 'MASTERBEDROOM', '', TRUE, FALSE, TRUE, '');
 INSERT INTO Object VALUES ('CAMERA', 'A small camera, much like my own', 'camera', '', 'WELL', '', FALSE, FALSE, FALSE, '');
