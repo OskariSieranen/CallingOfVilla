@@ -6,9 +6,9 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: inspect object? Restart? Save? Load?
+# TODO: Commands: inspect object?
 # TODO: add appearing of keys to the dining hall and library Fix eat triggers int he command chain, 
-# TODO: URGENT!!!!! ATTIC DEATH TRIGGERS AND CHILDRESN ROOM LIGHT SHIT ADD TEXT TO GLIMMER  ELIF EMTPY USE
+# TODO: CHILDRESN ROOM LIGHT SHIT ADD TEXT TO GLIMMER  ELIF EMTPY USE
 
 def inventory():
     cur = db.cursor()
@@ -252,11 +252,9 @@ def loseFlashlight():
 
 def deathByFire():
     print("Your oily clothes burn you alive. Maybe you should have considered that before lighting an oil lamp.")
-    command="quit"
 
 def deathByTrip():
     print("Your long robes trip you up on the steep stairs and you fall snapping your neck. Maybe illuminate your way next time.")
-    command="quit"
     
 def playAudio():
     pygame.mixer.music.play()
@@ -439,8 +437,10 @@ while command!="quit" and command!="exit" and location!="EXIT":
             oilBody = True
         if location=="ATTIC" and lightSource==False:
             deathByTrip()
+            command="quit"
         if location=="ATTIC" and oilBody==True:
             deathByTrip()
+            command="quit"
         if location=="HALLWAY" and lightSource==False:
             print("I can see some light coming from the Chidlren's Room.")
 
