@@ -51,7 +51,7 @@ INSERT INTO Location VALUES ('LIBRARY', 'library', 'There are broken book pieces
 INSERT INTO Location VALUES ('TROPHYROOM', 'trophy room', 'There are all kinds of stuffes animals their eyes seem to always one around', '');
 INSERT INTO Location VALUES ('DININGHALL', 'dining hall', 'There are large wooden dining table, still set from the last time it was used', '');
 INSERT INTO Location VALUES ('KITCHEN', 'kitchen', 'The kitchen looks clean, it was clear that the workers were very organized', '');
-INSERT INTO Location VALUES ('SECRETROOM', 'hidden servant*s room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
+INSERT INTO Location VALUES ('SECRETROOM', 'hidden servant''s room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
 
 -- Second floor
 INSERT INTO Location VALUES ('HALLWAY', 'hallway', 'The hallway is best lit so far, featuring large window owerlooking the decrepit garden', '');
@@ -96,8 +96,8 @@ INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'SECRETROOM', 'KITCHE
 
 INSERT INTO Passage VALUES ('u', 'I can''t go up to the second floor', '', TRUE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
 INSERT INTO Passage VALUES ('d', '', '', FALSE, FALSE, '', 'MIDDLEROOM', 'MAINHALL');
-INSERT INTO Passage VALUES ('ne', 'I can''t go up to the second floor', '', TRUE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
-INSERT INTO Passage VALUES ('sw', '', '', FALSE, FALSE, '', 'MIDDLEROOM', 'MAINHALL');
+--INSERT INTO Passage VALUES ('ne', 'I can''t go up to the second floor', '', TRUE, FALSE, '', 'MAINHALL', 'MIDDLEROOM');
+--INSERT INTO Passage VALUES ('sw', '', '', FALSE, FALSE, '', 'MIDDLEROOM', 'MAINHALL');
 
 -- Second floor
 INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'MIDDLEROOM', 'WALKWAYBATH');

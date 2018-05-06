@@ -200,8 +200,8 @@ def useLadder():
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='LADDER' AND Location='PLAYER';"
     cur.execute(sql)
     if cur.rowcount>=1:
-        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Direction='MIDDLEROOM';"
-        cur.execute(sql)
+        sql2 = "UPDATE Passage SET Locked='FALSE' WHERE StartLocation='MAINHALL' AND Direction='MIDDLEROOM';"
+        cur.execute(sql2)
         if cur.rowcount>=1:
             print("I finally got to the second floor.")
         else:
