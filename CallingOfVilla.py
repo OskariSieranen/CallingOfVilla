@@ -234,6 +234,7 @@ def loseFlashlight():
     cur = db.cursor()
     sql = "UPDATE Object SET Location='DEATHROOM' , Available='False' , Takeable='False' WHERE Object_Id='FLASHLIGHT'"
     cur.execute(sql)
+    print("What...why did it suddenly get so dark here... Where did my flashlight go..?!")
 
 def deathByFire():
     print("Your oily clothes burn you alive. Maybe you should have considered that before lighting an oil lamp.")
@@ -410,7 +411,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
         if location=="ATTIC" and AtticVoices==False:
             eventAtticVoices()
             AtticVoices = True
-        if location=="BATHROOM" and Flashlight==False:
+        if location=="BATHROOM" and Flashlight==False and lightSource==True:
             loseFlashlight()
             lightSource = False
         if location=="QUESTBEDROOM" and lightSource==False:
