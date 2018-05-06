@@ -129,7 +129,7 @@ INSERT INTO Passage VALUES ('nw', '', '', FALSE, FALSE, '', 'HALLWAY', 'QUESTBED
 INSERT INTO Passage VALUES ('se', '', '', FALSE, FALSE, '', 'QUESTBEDROOM', 'HALLWAY');
 INSERT INTO Passage VALUES ('se', '', '', FALSE, FALSE, '', 'HALLWAY', 'CHILDRENSROOM');
 INSERT INTO Passage VALUES ('nw', '', '', FALSE, FALSE, '', 'CHILDRENSROOM', 'HALLWAY');
-INSERT INTO Passage VALUES ('ne', '', '', FALSE, FALSE, '', 'HALLWAY', 'STUDY');
+INSERT INTO Passage VALUES ('ne', '', '', TRUE, FALSE, '', 'HALLWAY', 'STUDY');
 INSERT INTO Passage VALUES ('sw', '', '', FALSE, FALSE, '', 'STUDY', 'HALLWAY');
 
 -- Attic
@@ -137,7 +137,7 @@ INSERT INTO Passage VALUES ('s', 'Attic is locked', '', TRUE, FALSE, '', 'HALLWA
 INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'ATTIC', 'HALLWAY');
 
 -- Garden
-INSERT INTO Passage VALUES ('n', '', 'A statue fell on you', FALSE, TRUE, '', 'MAINHALL', 'GARDENENTRANCE');
+INSERT INTO Passage VALUES ('n', '', 'A statue fell on you', TRUE, TRUE, '', 'MAINHALL', 'GARDENENTRANCE');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'GARDENENTRANCE', 'MAINHALL');
 INSERT INTO Passage VALUES ('n', '', '', FALSE, FALSE, '', 'GARDENENTRANCE', 'GARDENPROPER');
 INSERT INTO Passage VALUES ('s', '', '', FALSE, FALSE, '', 'GARDENPROPER', 'GARDENENTRANCE');
@@ -159,14 +159,14 @@ INSERT INTO Passage VALUES ('e', 'I can''t go', '', TRUE, FALSE, '', 'WELL', 'TH
 -- OBJECT
 -- All objects
 INSERT INTO Object VALUES ('LADDER', 'Old ladder', 'ladder', 'Old used wooden ladder', 'SECRETROOM', '', TRUE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('STUDYKEY', 'Key to the study', 'key', 'Beatifully engraved iron key', 'DININGHALL', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('STUDYKEY', 'Key to the study', 'key', 'Beatifully engraved iron key', 'DININGHALL', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('MANIFEST', 'Worn manifest featuring list of all the books of the library', 'manifest', '', 'STUDY', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('BIOGRAPHY', '', 'biography', '', 'LIBRARY', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('ATTICKEY', 'Key to the attic', 'key', 'Old sturdy iron key', 'LIBRARY', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('ATTICKEY', 'Key to the attic', 'key', 'Old sturdy iron key', 'LIBRARY', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('LAMP', 'Rusty oil lamp', 'lamp', 'Rusty oil lamp with small amount of oil inside', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('CLOTHES', 'Old clothes to wear', 'clothes', 'Clean pure white clothes', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('GLIMMER', 'Key to the cellar', 'glimmer', 'A small shiny key', 'FOUNTAIN', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('BUCKET', '', 'bucket', 'Wooden bucket with some rope attached to it', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('GLIMMER', 'Key to the cellar', 'glimmer', 'A small shiny key', 'FOUNTAIN', '', TRUE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('BUCKET', '', 'bucket', 'Wooden bucket with some rope attached to it', 'TOOLSHED', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('ROPE', 'Old rope', 'rope', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('PHONE', 'Old an reliable NOKIA 3310', 'phone', 'NOKIA 3310. Possible to use as a weapon and call after 1 year without charging. Better than a brick', 'WELL', '', FALSE, TRUE, FALSE,'');
 INSERT INTO Object VALUES ('FLASHLIGHT', 'Convoy S2+ LED Flashlight ', 'flashlight', '', 'PLAYER', '', TRUE, TRUE, FALSE, '');

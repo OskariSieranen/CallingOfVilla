@@ -400,7 +400,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
             location = movedLocation
             look()
         if location=="MASTERBEDROOM" and QuestVoices==False:
-            eventMasterBedroomVoices()()
+            eventMasterBedroomVoices()
             QuestVoices = True
         if location=="WALKWAYBATH" and WalkwayVoices==False:
             eventWalkwayVoices()
@@ -424,8 +424,10 @@ while command!="quit" and command!="exit" and location!="EXIT":
 
     #Might work, tbc
     #elif command=="restart":
-     #   db.rollback()
-     #   init()
+    #   db.rollback()
+    #   command = ""
+    #   location = "MAINHALL"
+    # init()
     # Light command
     elif command=="light":
         light()
