@@ -100,13 +100,13 @@ def getObject(target):
 # Events here:
 def eventTrophyVoices():
     print("My head feels light ... more voices..?")
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...you boys hear about the servant girl?", 'magenta')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...the one caught stealing from the master?", 'cyan')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...I hear she is still hiding in that small room in the kitchen...", 'magenta')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...let's hope that she has learned her lesson...", 'cyan')
     
 def eventWalkwayVoices():
@@ -117,13 +117,13 @@ def eventMasterBedroomVoices():
 
 def eventAtticVoices():
     cprint("...I wonder if he is ok...", 'cyan')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...mhmhmhmhmhmhmhmhhhm...", 'yellow')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...I agree, he does look a bit different from the last time, maybe even worse...", 'cyan')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...mhmhmhmhmhmhmmhhmmhmhm...", 'yellow')
-    #time.sleep(3)
+    time.sleep(3)
     cprint("...I hope so too...", 'cyan')
 
 def eventQuestBedroomFall():
@@ -291,7 +291,7 @@ logo =colored('''
                                                                                                                                                                                                                                                     
 ''', 'red')
 print(logo)
-#time.sleep(3)  
+time.sleep(3)  
 house = colored('''
             
                *         .              *            _.---._      
@@ -337,7 +337,7 @@ print("The old house seems creepier and creepier by the second, and you have to.
 print("... G E T  O U T...")
 print("\n")
 print("I can hear a whispy voice around me... I can almost make out the words...")
-#time.sleep(3)
+time.sleep(3)
 cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
 look()
 
