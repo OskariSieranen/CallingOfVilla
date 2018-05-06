@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: use, talk , restart?, (save, load,) look at / for objects ADD elif for useStudyKey
+# TODO: Commands: use, talk, , quit, restart?, (save, load,) look at / for objects ADD elif for useStudyKey
 # TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
 # TODO: Configure the take commands correctly
 
@@ -329,15 +329,21 @@ while command!="quit" and command!="exit" and location!="EXIT":
     # Taking objects 
     elif command=="take" or command=="get" and target!="":
         getOK = getObject(target)
-        if getOK==1:
-            if location=="SECRETROOM" and target=="ladder":
-                takeLadder()
-            elif location=="DININGHALL" and target=="key":
-                takeStudyKey()
-            elif location=="LIBRARY" and target=="key":
-                takeAtticKey()
-            elif location=="FOUNTAIN" and target=="key":
-                takeGlimmer()
+        # if getOK==1:
+            # Things appearing if get here.
+    elif command=="use":
+        if target=="":
+            print("I don't know what to use.")
+        elif location=="SECRETROOM" and target=="ladder":
+            useLadder()
+        elif location=="HALLWAY" and target=="studykey":
+            useStudyKey()
+        elif location=="LIBRARY" and target=="attickey":
+            useAtticKey()
+        elif location=="ATTIC" and target=="switch":
+            useAtticSwitch()
+        else:
+            print("You can't do that.")
 
     # Movement 
     #TODO IS THAT QUEST B-ROOM SUPPOSED TO BE MASTER
