@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: use, talk, , quit, restart?, (save, load,) look at / for objects ADD elif for useStudyKey
+# TODO: Commands: use, talk , restart?, (save, load,) look at / for objects ADD elif for useStudyKey
 # TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
 # TODO: Configure the take commands correctly
 
@@ -202,6 +202,20 @@ def useAtticSwitch():
     look()
     print(" It seems that the switch moved the statue, revealing a door behind it...")
 
+def useBucket():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='BUCKET' AND Location='PLAYER';"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Object SET Available='True' WHERE Object_Id='Camera';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("What is this? It's... Uhmm.. What?? I forgot my camera? Why is it here?")
+            print("*The camera contains 10 different photos of you inside the mansion.. Last photo was takes 6 minutes ago. In the last picture you are in middle of the garden... The garden is burning all around you...")
+            print("WHAT IS HAPPENING?! IS SOMEONE ELSE HERE?? WHO ARE YOU?? SHOW YOURSELF!")
+
+        else:
+            print("I can't do that now.")
 
 def playAudio():
     pygame.mixer.music.play()
@@ -319,12 +333,20 @@ while command!="quit" and command!="exit" and location!="EXIT":
     # Taking objects 
     elif command=="take" or command=="get" and target!="":
         getOK = getObject(target)
-        # if getOK==1:
-            # Things appearing if get here.
+        if getOK==1:
+            if location=="SECRETROOM" and target=="ladder":
+                takeLadder()
+            elif location=="DININGHALL" and target=="key":
+                takeStudyKey()
+            elif location=="LIBRARY" and target=="key":
+                takeAtticKey()
+            elif location=="FOUNTAIN" and target=="key":
+                takeGlimmer()
+
     elif command=="use":
         if target=="":
             print("I don't know what to use.")
-        elif location=="SECRETROOM" and target=="ladder":
+        elif location=="MAINHALL" and target=="ladder":
             useLadder()
         elif location=="HALLWAY" and target=="studykey":
             useStudyKey()
@@ -332,8 +354,10 @@ while command!="quit" and command!="exit" and location!="EXIT":
             useAtticKey()
         elif location=="ATTIC" and target=="switch":
             useAtticSwitch()
+            
         else:
             print("You can't do that.")
+        
 
     # Movement 
     #TODO IS THAT QUEST B-ROOM SUPPOSED TO BE MASTER
