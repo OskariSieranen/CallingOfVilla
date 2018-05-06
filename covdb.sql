@@ -46,38 +46,38 @@ CREATE TABLE Passage
 -- LOCATION
 INSERT INTO Location VALUES ('PLAYER', 'I have ', '', '');
 -- First floor
-INSERT INTO Location VALUES ('MAINHALL', 'I am in the main hall', 'There are large statue of a man with face hidden by moss. There are also two sets of stairs going to the second floor, the rightmost ones being broken', '');
-INSERT INTO Location VALUES ('LIBRARY', 'I am in the library', 'There are broken book pieces scattered around room, but some random bits and pieces can still be read from some volumes', '');
-INSERT INTO Location VALUES ('TROPHYROOM', 'I am in the trophy room', 'There are all kinds of stuffes animals their eyes seem to always one around', '');
-INSERT INTO Location VALUES ('DININGHALL', 'I am in the dining hall', 'There are large wooden dining table, still set from the last time it was used', '');
-INSERT INTO Location VALUES ('KITCHEN', 'I am in the kitchen', 'The kitchen looks clean, it was clear that the workers were very organized', '');
-INSERT INTO Location VALUES ('SECRETROOM', 'I am in the hidden servant*s room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
+INSERT INTO Location VALUES ('MAINHALL', ' main hall', 'There are large statue of a man with face hidden by moss. There are also two sets of stairs going to the second floor, the rightmost ones being broken', '');
+INSERT INTO Location VALUES ('LIBRARY', ' library', 'There are broken book pieces scattered around room, but some random bits and pieces can still be read from some volumes', '');
+INSERT INTO Location VALUES ('TROPHYROOM', ' trophy room', 'There are all kinds of stuffes animals their eyes seem to always one around', '');
+INSERT INTO Location VALUES ('DININGHALL', ' dining hall', 'There are large wooden dining table, still set from the last time it was used', '');
+INSERT INTO Location VALUES ('KITCHEN', ' kitchen', 'The kitchen looks clean, it was clear that the workers were very organized', '');
+INSERT INTO Location VALUES ('SECRETROOM', ' hidden servant*s room', 'There is a large closet with some equipment and table with a deck of cards laying about it. Perhaps the servants of the house used to have their brakes here.', '');
 
 -- Second floor
-INSERT INTO Location VALUES ('HALLWAY', 'I am in the hallway', 'The hallway is best lit so far, featuring large window owerlooking the decrepit garden', '');
-INSERT INTO Location VALUES ('QUESTBEDROOM', 'I am in the quest bedroom', 'The guest bedroom is the direct opposite of the master bedroom, having half of the ceiling collapsed on the room, making it unusable for anything', '');
-INSERT INTO Location VALUES ('MASTERBEDROOM', 'I am in the master bedroom', 'The master bedroom has inexplicably survived, looking how one would expect the house’s lord’s bedroom to look', '');
-INSERT INTO Location VALUES ('STUDY', 'I am in the study', '', '');
-INSERT INTO Location VALUES ('CHILDRENSROOM', 'I am in the children*s room', 'The children’s room is at start almost as horrid as the guest bedroom', '');
-INSERT INTO Location VALUES ('MIDDLEROOM', 'I am in the middle room', 'There are fully broken stairs down', '');
-INSERT INTO Location VALUES ('WALKWAYBATH', 'I am in the walkway to the bathroom', 'From the window you see the dead garden', '');
-INSERT INTO Location VALUES ('BATHROOM', 'I am in the bathroom', 'The bathroom has seen better days, looking generally very sticky', '');
-INSERT INTO Location VALUES ('NOFLOORROOM1', 'I am in the room with minimal amount of floor at the door', '', '');
-INSERT INTO Location VALUES ('NOFLOORROOM2', 'I am in the room with minimal amount of floor at the door', '', '');
+INSERT INTO Location VALUES ('HALLWAY', ' hallway', 'The hallway is best lit so far, featuring large window owerlooking the decrepit garden', '');
+INSERT INTO Location VALUES ('QUESTBEDROOM', ' quest bedroom', 'The guest bedroom is the direct opposite of the master bedroom, having half of the ceiling collapsed on the room, making it unusable for anything', '');
+INSERT INTO Location VALUES ('MASTERBEDROOM', ' master bedroom', 'The master bedroom has inexplicably survived, looking how one would expect the house’s lord’s bedroom to look', '');
+INSERT INTO Location VALUES ('STUDY', ' study', '', '');
+INSERT INTO Location VALUES ('CHILDRENSROOM', ' children*s room', 'The children’s room is at start almost as horrid as the guest bedroom', '');
+INSERT INTO Location VALUES ('MIDDLEROOM', ' middle room', 'There are fully broken stairs down', '');
+INSERT INTO Location VALUES ('WALKWAYBATH', ' walkway to the bathroom', 'From the window you see the dead garden', '');
+INSERT INTO Location VALUES ('BATHROOM', ' bathroom', 'The bathroom has seen better days, looking generally very sticky', '');
+INSERT INTO Location VALUES ('NOFLOORROOM1', ' room with minimal amount of floor at the door', '', '');
+INSERT INTO Location VALUES ('NOFLOORROOM2', ' room with minimal amount of floor at the door', '', '');
 INSERT INTO Location VALUES ('DEATHROOM', 'I DIED', '', '');
 
 -- Attic
-INSERT INTO Location VALUES ('ATTIC', 'I am in the attic', 'Everything in the attic is covered in dust. In the middle of the room, there is a switch. Illuminating the room is a big round window overlooking the entrance to the house', '');
+INSERT INTO Location VALUES ('ATTIC', ' attic', 'Everything in the attic is covered in dust. In the middle of the room, there is a switch. Illuminating the room is a big round window overlooking the entrance to the house', '');
 
 -- Garden
-INSERT INTO Location VALUES ('GARDENENTRANCE', 'I am in the garden entrance', 'The garden is in full bloom and looks well kept', '');
-INSERT INTO Location VALUES ('GARDENPROPER', 'I am in the garden proper', 'It''s dark and moist', '');
-INSERT INTO Location VALUES ('TOOLSHED', 'I am in the tool shed', 'The shed is small and full of spiders', '');
+INSERT INTO Location VALUES ('GARDENENTRANCE', ' garden entrance', 'The garden is in full bloom and looks well kept', '');
+INSERT INTO Location VALUES ('GARDENPROPER', ' garden proper', 'It''s dark and moist', '');
+INSERT INTO Location VALUES ('TOOLSHED', ' tool shed', 'The shed is small and full of spiders', '');
 INSERT INTO Location VALUES ('FOUNTAIN', 'I am near fountain', 'There is giant fountain in front of you', '');
 
 -- Cellar
-INSERT INTO Location VALUES ('RIDDLEROOM', 'I am in the room full of puzzles', 'wordplay', '');
-INSERT INTO Location VALUES ('WELL', 'I am in the well', 'There looks to be some light at the bottom of well', '');
+INSERT INTO Location VALUES ('RIDDLEROOM', ' room full of puzzles', 'wordplay', '');
+INSERT INTO Location VALUES ('WELL', ' well', 'There looks to be some light at the bottom of well', '');
 INSERT INTO Location VALUES ('THEEND', 'I am in a nice opening of forest', 'I see behind me hidden entrance to the psychiatric hospital and in front of you big forest', '');
 INSERT INTO Location VALUES ('EXIT', '', '', '');
 
