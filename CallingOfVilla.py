@@ -6,7 +6,7 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: use, talk , restart?, (save, load,) look at / for objects ADD elif for useStudyKey
+# TODO: Commands: talk , restart?, (save, load,) look at / for objects ADD elif for useStudyKey
 # TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
 # TODO: Configure the take commands correctly
 
@@ -252,7 +252,23 @@ def playAudio():
 def stopAudio():
     pygame.mixer.music.stop()
 
-
+def init():
+    WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = Flashlight = False
+    lightSource = True   
+    PlayerName = input("Give me your name: ")
+    print("Your name is", PlayerName, "and you are an aspiring blogger going to explore and old abandoned mansion to record your journey for money and fame.")
+    print("Your friend dropped of you at the edge of the forest and after a couple of hours of hiking, you have finally arrived at the old mansion.")
+    print("You enter the once magnificent building and hear the giant double doors lock behind your back.")
+    print("The old house seems creepier and creepier by the second, and you have to...")
+    # time.sleep(17)
+    print("... G E T  O U T...")
+    print("\n")
+    print("I can hear a whispy voice around me... I can almost make out the words...")
+    #time.sleep(3)
+    cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
+    location = "MAINHALL"
+    look() 
+    command = ""
 db = mysql.connector.connect(host="localhost",
                            user="root",
                            passwd="MountainDiscoLadder",
@@ -264,9 +280,7 @@ pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
-
-WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = Flashlight = False
-lightSource = True                
+             
 # Initializing the emptyscreen, loading titles and resetting the location
 print("\n"*1000)
 logo =colored('''
@@ -319,20 +333,7 @@ house = colored('''
 ''','white')
 print(house)
 
-PlayerName = input("Give me your name: ")
-print("Your name is", PlayerName, "and you are an aspiring blogger going to explore and old abandoned mansion to record your journey for money and fame.")
-print("Your friend dropped of you at the edge of the forest and after a couple of hours of hiking, you have finally arrived at the old mansion.")
-print("You enter the once magnificent building and hear the giant double doors lock behind your back.")
-print("The old house seems creepier and creepier by the second, and you have to...")
-# time.sleep(17)
-print("... G E T  O U T...")
-print("\n")
-print("I can hear a whispy voice around me... I can almost make out the words...")
-#time.sleep(3)
-cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
-location = "MAINHALL"
-look() 
-command = ""
+init()
 
 # Main Loop 
 # If player has no lightsource, add a line after each loop that says 'It is so dark in here'
