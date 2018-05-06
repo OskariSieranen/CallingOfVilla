@@ -6,8 +6,9 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: talk? ,, (save, load,) look at / for objects ADD elif for useStudyKey
-# TODO: Voices for the hallway urging the player to eat the food in the kitchen
+# TODO: Commands: inspect object? Restart? Save? Load?
+# TODO: add appearing of keys to the dining hall and library Fix eat triggers int he command chain, 
+# TODO: URGENT!!!!! ATTIC DEATH TRIGGERS AND CHILDRESN ROOM LIGHT SHIT ADD TEXT TO GLIMMER  ELIF EMTPY USE
 
 def inventory():
     cur = db.cursor()
@@ -61,27 +62,30 @@ def eatObject(target):
     cur = db.cursor()
     sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
     cur.execute(sql)
-    if cur.rowcount==1 and target==newspaper or target==food or target==pillow:
+    if cur.rowcount==1 and target=="newspaper" or target=="food" or target=="pillow":
         print("I will eat", target)
     else:
         print("I can't eat that.")
 
 def readObject(target):
     cur = db.cursor()
-    sql = "SELECT Object WHERE Object_Id='NEWSPAPER' OR Object_Id='MANIFEST' OR Object_Id='BIOGRAPHY';"
+    sql = "SELECT Object_Id FROM Object WHERE Object_id='NEWSPAPER' OR Object_id='MANIFEST' OR Object_id='BIOGRAPHY'"
     #sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
     cur.execute(sql)
-    if cur.rowcount>=1 and target==newspaper and location=="STUDY":
+    if cur.rowcount>=1 and target=="newspaper" and location=="STUDY":
         sql = "SELECT Details FROM Object WHERE Object_Id='NEWSPAPER'"
         newspaperText = cur.execute(sql)
         print("Hmm what does it say?", newspaperText)
-    elif cur.rowcount>=1 and target==biography and location=="LIBRARY":
+    elif cur.rowcount>=1 and target=="biography" and location=="LIBRARY":
         print("Hmm what is this?" , "Major depressive disorder descended upon writer" ,PlayerName, "during their college and young professional days, after a lifetime of loneliness and longing for family. Like many individuals suffering from this agonizingly common condition, she turned towards substance abuse and even a suicide attempt as a means of self-medicating. But a combination of steel will and a determined doctor set Wurtzel back on the difficult road to recovery.")
         print("What the hell is going on???")
-    elif cur.rowcount>=1 and target==manifest and location=="STUDY":
+        print("A sturdy iron key drops from between the pages of the biography...")
+        sql = "UPDATE Object SET Location='PLAYER' , Available=FALSE WHERE Object_Id='ATTICKEY'"
+        cur.execute(sql)
+    elif cur.rowcount>=1 and target=="manifest" and location=="STUDY":
         sql = "SELECT Details FROM Object WHERE Object_Id='MANIFEST'"
         manifestText = cur.execute(sql)
-        print("It's and old manifest of the books in the library. It's mostly destroyed by time, but I can still make out", manifestText)
+        print("It's and old manifest of the books in the library. It's mostly destroyed by time, but I can still make out the location of a biography in the library... I wonder if it is still readable.")
     else:
         print("There is nothing to read.")
 
@@ -127,6 +131,16 @@ def eventQuestBedroomFall():
     print("It is really dark in here...")
     time.sleep(3)
     print("DAMN... I fell and now my clothes are all covered in something sticky...")
+
+def eventRiddleDoorOpening():
+    cur = db.cursor()
+    sql = "UPDATE Passage SET Locked=False WHERE StartLocation='RIDDLEROOM' AND Destination='WELL'"
+    cur.execute(sql)
+    print("The east wall of the room crumbles as I utter the word...")
+
+def eventFinalRoom():
+    cur = db.cursor()
+    sql = "UPDATE Passage SET Locked=False WHERE StartLocation='WELL' AND Destination='THEEND'"
 # Take triggers:
 # def takeLadder():
 #     cur = db.cursor()
@@ -213,21 +227,20 @@ def useAtticSwitch():
     sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE';"
     cur.execute(sql)
     print("I hear rumbling from downstairs...")
-    location = "MAINHALL"
-    look()
-    print(" It seems that the switch moved the statue, revealing a door behind it...")
 
 def useBucket():
     cur = db.cursor()
     sql = "SELECT Object_Id FROM Object WHERE Object_Id='BUCKET' AND Location='PLAYER';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
-        sql = "UPDATE Object SET Available='True' WHERE Object_Id='Camera';"
+    if cur.rowcount>=1:
+        sql = "SELECT Object_Id FROM Object WHERE Object_Id='CAMERA';"
         cur.execute(sql)
-        if cur.rowcount()>=1:
+        if cur.rowcount>=1:
             print("What is this? It's... Uhmm.. What?? I forgot my camera? Why is it here?")
             print("*The camera contains 10 different photos of you inside the mansion.. Last photo was takes 6 minutes ago. In the last picture you are in middle of the garden... The garden is burning all around you...")
             print("WHAT IS HAPPENING?! IS SOMEONE ELSE HERE?? WHO ARE YOU?? SHOW YOURSELF!")
+            sql = "UPDATE Passage SET Locked=False WHERE StartLocation='WELL' AND Destination='THEEND'"
+            cur.execute(sql)
 
         else:
             print("I can't do that now.")
@@ -264,7 +277,7 @@ pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
 
 # Initializing the emptyscreen, loading titles and resetting the location
-WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = Flashlight = False
+WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = Flashlight = firstKey = False
 lightSource = True   
 location = "MAINHALL" 
 command = ""
@@ -376,15 +389,22 @@ while command!="quit" and command!="exit" and location!="EXIT":
             print("I don't know what to use.")
         elif location=="MAINHALL" and target=="ladder":
             useLadder()
-        elif location=="HALLWAY" and target=="key":
+        elif location=="HALLWAY" and target=="key" and firstKey==False:
             useStudyKey()
-        elif location=="LIBRARY" and target=="key":
+            firstKey=True
+        elif location=="HALLWAY" and target=="key":
             useAtticKey()
         elif location=="ATTIC" and target=="switch":
             useAtticSwitch()
-            
+            location = "MAINHALL"
+            look()
+            print(" It seems that the switch moved the statue, revealing a door behind it...")
+        elif location=="TROPHYROOM" and target=="glimmer":
+            useGlimmer()
+        elif location=="WELL" and target=="bucket":
+            useBucket()
         else:
-            print("You can't do that.")
+            print("I can't do that.")
         
 
     # Movement 
@@ -421,6 +441,8 @@ while command!="quit" and command!="exit" and location!="EXIT":
             deathByTrip()
         if location=="ATTIC" and oilBody==True:
             deathByTrip()
+        if location=="HALLWAY" and lightSource==False:
+            print("I can see some light coming from the Chidlren's Room.")
 
     #Might work, tbc
     #elif command=="restart":
@@ -429,8 +451,14 @@ while command!="quit" and command!="exit" and location!="EXIT":
     #   location = "MAINHALL"
     # init()
     # Light command
+    
+    elif command=="darkness" and location=="RIDDLEROOM":
+        eventRiddleDoorOpening()
+
+    
     elif command=="light":
         light()
+        lightSource = True
 
     elif command=="read" and target!="":
         readObject(target)
