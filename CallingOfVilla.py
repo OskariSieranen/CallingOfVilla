@@ -295,6 +295,19 @@ while command!="quit" and command!="exit" and location!="EXIT":
         getOK = getObject(target)
         # if getOK==1:
             # Things appearing if get here.
+    elif command=="use":
+        if target=="":
+            print("I don't know what to use.")
+        elif location=="SECRETROOM" and target=="ladder":
+            useLadder()
+        elif location=="HALLWAY" and target=="studykey":
+            useStudyKey()
+        elif location=="LIBRARY" and target=="attickey":
+            useAtticKey()
+        elif location=="ATTIC" and target=="switch":
+            useAtticSwitch()
+        else:
+            print("You can't do that.")
 
     # Movement 
     #TODO IS THAT QUEST B-ROOM SUPPOSED TO BE MASTER
