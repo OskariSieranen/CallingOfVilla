@@ -8,56 +8,76 @@ import pygame
 # Commands go here | First person always. Ex. "I have *List of items*"
 # TODO: Commands: use, talk, (read), (eat), quit, restart?, (save, load,) look at / for objects ADD elif for useStudyKey
 # TODO: Triggers for all the doors opening, Study, Attic, Garden, Cellar, Voices done for the start, QBedroom and Walkway
+# TODO: Configure the take commands correctly
 
 def inventory():
     cur = db.cursor()
-    sql = "SELECT Object_Id, Description FROM Object WHERE Location = PLAYER;"
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location = 'PLAYER';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    res = cur.fetchall()
+    if cur.rowcount>=1:
         print("I have: ")
-        for item in cur.fetchall():
-            print("-" + item[0])
+        for item in res:
+            print("- " + item[0])
     else:
         print("I don't have anything at the moment.")
-    return
 
 def light():
     cur = db.cursor()
-    sql = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = FLASHLIGHT"
-    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = PLAYER and Object_Id = LAMP"
+    sql = "SELECT Object_Id FROM Object WHERE Location = 'PLAYER' AND Object_Id = 'FLASHLIGHT';"
+    sqlTwo = "SELECT Object_Id FROM Object WHERE Location = 'PLAYER' AND Object_Id = 'LAMP';"
     cur.execute(sql)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         print("My flashlight is on.")
     else:
         print("I have nothing to light at the moment.")
     cur.execute(sqlTwo)
-    if cur.rowcount()>=1:
+    if cur.rowcount>=1:
         print("My oil lamp is on.")
     
-
- # AND SOURCE keskelle missä pelkkä AND??
-def move(location, destination):
-    destination = location
+def move(location, direction):
+    direction = location
     cur = db.cursor()
-    sql ="SELECT Location FROM Passage WHERE Direction." + Direction + "AND" + location + "AND Locked=0"
+    sql = "SELECT Destination FROM Passage WHERE Direction='" + command + "' AND StartLocation='" + location + "' AND Locked=0;"
     cur.execute(sql)
     if cur.rowcount>=1:
             for row in cur.fetchall():
-                destination = row[0]
+                direction = row[0]
     else:
-        destination = location
-    return destination
+        direction = location
+    return direction
 
-# Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
+#TODO Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
 def look():
     cur = db.cursor()
-    sql = "SELECT Description, Details FROM Location WHERE ID='" + location + "';"
+    sql = "SELECT Description, Details FROM Location WHERE Location_Id='" + location + "';"
     cur.execute(sql)
     print("I am in the: ")
     for row in cur:
         print (row[0])
         if (row[1]!=""):
             print(row[1])
+
+def eatObject(target):
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
+    cur.execute(sql)
+    if cur.rowcount==1 and target==newspaper or target==food or target==pillow:
+        print("I will eat", target)
+    else:
+        print("I can't eat that.")
+
+def readObject(target):
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
+    cur.execute(sql)
+    if cur.rowcount==1 and target==newspaper:
+        print("Hmm what does it say?", target)
+    elif cur.rowcount==1 and target==biography:
+        print("Hmm what is this?" , "Major depressive disorder descended upon writer" ,PlayerName, "during their college and young professional days, after a lifetime of loneliness and longing for family. Like many individuals suffering from this agonizingly common condition, she turned towards substance abuse and even a suicide attempt as a means of self-medicating. But a combination of steel will and a determined doctor set Wurtzel back on the difficult road to recovery.")
+        print("What the hell is going on???")
+    else:
+        print("There is nothing to read.")
 
 def getObject(target):
     cur = db.cursor()
@@ -71,34 +91,90 @@ def getObject(target):
 # Events here:
 def eventTrophyVoices():
     print("My head feels light ... more voices..?")
+    #time.sleep(3)
     cprint("...you boys hear about the servant girl?", 'magenta')
+    #time.sleep(3)
     cprint("...the one caught stealing from the master?", 'cyan')
+    #time.sleep(3)
     cprint("...I hear she is still hiding in that small room in the kitchen...", 'magenta')
+    #time.sleep(3)
     cprint("...let's hope that she has learned her lesson...", 'cyan')
-    TrophyVoices = True
+    
 def eventWalkwayVoices():
     cprint("... once such a beautiful garden... I'll have to see what I can do about that... maybe you can visit sometime...", 'blue')
-    WalkwayVoices = True
-
+    
 def eventQuestBedroomVoices():
     cprint("... I'm feeling peckish... they always said that the answer can be found on your plate", 'blue')
-    QuestVoices = True
 
+def eventAtticVoices():
+    cprint("...I wonder if he is ok...", 'cyan')
+    #time.sleep(3)
+    cprint("...mhmhmhmhmhmhmhmhhhm...", 'yellow')
+    #time.sleep(3)
+    cprint("...I agree, he does look a bit different from the last time, maybe even worse...", 'cyan')
+    #time.sleep(3)
+    cprint("...mhmhmhmhmhmhmmhhmmhmhm...", 'yellow')
+    #time.sleep(3)
+    cprint("...I hope so too...", 'cyan')
 
 
 # Use triggers:
 def useStudyKey():
     cur = db.cursor()
-    sql = "SELECT Object_Id FROM Object WHERE Object_Id='STUDYKEY' AND Location='PLAYER'"
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='STUDYKEY' AND Location='PLAYER';"
     cur.execute(sql)
     if cur.rowcount()>=1:
-        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Destination='STUDY';"
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Direction='STUDY';"
         cur.execute(sql)
         if cur.rowcount()>=1:
             print("The key I had opened the study.")
     else:
         print("I can't do that now.")
 
+def useAtticKey():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='ATTICKEY' AND Location='PLAYER';"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='HALLWAY' AND Direction='ATTIC';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("The key I had opened the door to the attic.")
+        else:
+            print("I can't do that now.")
+            
+def useGlimmer():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='GLIMMER' AND Location='PLAYER';"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='TROPHYROOM' AND Direction='RIDDLEROOM';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("The key I had opened the door to the Basement.")
+        else:
+            print("I can't do that now.")
+
+def useLadder():
+    cur = db.cursor()
+    sql = "SELECT Object_Id FROM Object WHERE Object_Id='LADDER' AND Location='PLAYER';"
+    cur.execute(sql)
+    if cur.rowcount()>=1:
+        sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND Direction='MIDDLEROOM';"
+        cur.execute(sql)
+        if cur.rowcount()>=1:
+            print("I finally got to the second floor.")
+        else:
+            print("I can't do that now.")
+
+def useAtticSwitch():
+    cur = db.cursor()
+    sql = "UPDATE Passage SET Locked='False' WHERE StartLocation='MAINHALL' AND direction='GARDENENTRANCE';"
+    cur.execute(sql)
+    print("I hear rumbling from downstairs...")
+    location = "MAINHALL"
+    look()
+    print(" It seems that the switch moved the statue, revealing a door behind it...")
 
 
 def playAudio():
@@ -107,19 +183,20 @@ def playAudio():
 def stopAudio():
     pygame.mixer.music.stop()
 
-# Connection here
-# db = mysql.connector.connect(host="localhost",
-#                            user="",
-#                            passwd="",
-#                            db="CallingOfVilla",
-#                            buffered=True)
+
+db = mysql.connector.connect(host="localhost",
+                           user="root",
+                           passwd="MountainDiscoLadder",
+                           db="cov",
+                           buffered=True)
 
 # Initializing the music
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
-                            
+
+WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = False                
 # Initializing the emptyscreen, loading titles and resetting the location
 print("\n"*1000)
 logo =colored('''
@@ -134,7 +211,7 @@ logo =colored('''
                                                                                                                                                                                                                                                     
 ''', 'red')
 print(logo)
-time.sleep(3) 
+#time.sleep(3) 
 house = colored('''
             
                *         .              *            _.---._      
@@ -179,13 +256,16 @@ print("You enter the once magnificent building and hear the giant double doors l
 print("The old house seems creepier and creepier by the second, and you have to...")
 # time.sleep(17)
 print("... G E T  O U T...")
+print("\n")
 print("I can hear a whispy voice around me... I can almost make out the words...")
 #time.sleep(3)
 cprint("... you ever talk to animals? I find their company extremly revealing...", 'blue')
-location = "MAINHALL" 
+location = "MAINHALL"
+look() 
 command = ""
 
-# Main Loop
+# Main Loop 
+# If player has no lightsource, add a line after each loop that says 'It is so dark in here'
 while command!="quit" and command!="exit" and location!="EXIT":
     print("")
     operation = input("What to do: ").split()
@@ -207,7 +287,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
         inventory()
     
     # Looking around
-    elif command=="look":
+    elif command=="look" or command=="l":
         look()
 
     # Taking objects 
@@ -217,11 +297,12 @@ while command!="quit" and command!="exit" and location!="EXIT":
             # Things appearing if get here.
 
     # Movement 
-    #TODO IS THAT QUEST BROOM SUPPOSED TO BE MASTER
+    #TODO IS THAT QUEST B-ROOM SUPPOSED TO BE MASTER
     elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w" \
         or command=="nw" or command=="sw" or command=="ne" or command=="se" or command=="northwest" or command=="southwest" or command=="northeast" or command=="southeast" \
         or command=="up" or command=="u" or command=="down" or command=="d":
-        movedLocation = move(location, destination)
+       
+        movedLocation = move(location, command)
         if location == movedLocation:
             print("I can't move there")
         else:
@@ -229,15 +310,23 @@ while command!="quit" and command!="exit" and location!="EXIT":
             look()
         if location=="QUESTBEDROOM" and QuestVoices==False:
             eventQuestBedroomVoices()
+            QuestVoices = True
         if location=="WALKWAYBATH" and WalkwayVoices==False:
             eventWalkwayVoices()
+            WalkwayVoices = True
         if location=="TROPHYROOM" and TrophyVoices==False:
             eventTrophyVoices()
-
+            TrophyVoices = True
+        if location=="ATTIC" and AtticVoices==False:
+            eventAtticVoices()
+            AtticVoices = True
 
     # Light command
-    elif command=="light" or command=="l":
+    elif command=="light":
         light()
+
+    # elif command=="darkness" and location=="RIDDLEROOM":
+    #     #open door to final room
 
     # Audio Commands
     elif command=="play":
@@ -256,4 +345,5 @@ if (location=="EXIT"):
     print("") # Victory speech here
 else:
     print("Don't be gone too long...")
+    time.sleep(3)
 db.rollback()
