@@ -110,7 +110,7 @@ def eventTrophyVoices():
 def eventWalkwayVoices():
     cprint("... once such a beautiful garden... I'll have to see what I can do about that... maybe you can visit sometime...", 'blue')
     
-def eventQuestBedroomVoices():
+def eventMasterBedroomVoices():
     cprint("... I'm feeling peckish... they always said that the answer can be found on your plate", 'blue')
 
 def eventAtticVoices():
@@ -123,6 +123,11 @@ def eventAtticVoices():
     cprint("...mhmhmhmhmhmhmmhhmmhmhm...", 'yellow')
     #time.sleep(3)
     cprint("...I hope so too...", 'cyan')
+
+def eventQuestBedroomFall():
+    print("It is really dark in here...")
+    time.sleep(3)
+    print("DAMN... I fell and now my clothes are all covered in something sticky...")
 # Take triggers:
 def takeLadder():
     cur = db.cursor()
@@ -211,8 +216,7 @@ def loseFlashlight():
     cur = db.cursor()
     sql = "UPDATE Object SET Location='DEATHROOM' , Available='False' , Takeable='False' WHERE Object_Id='FLASHLIGHT'"
     cur.execute(sql)
-    lightSource=False
-
+    
 def playAudio():
     pygame.mixer.music.play()
 
@@ -232,7 +236,8 @@ pygame.mixer.init()
 pygame.mixer.music.load('TestSong.wav')
 pygame.mixer.music.play()
 
-WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = False                
+WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = False
+lightSource = True                
 # Initializing the emptyscreen, loading titles and resetting the location
 print("\n"*1000)
 logo =colored('''
@@ -247,7 +252,7 @@ logo =colored('''
                                                                                                                                                                                                                                                     
 ''', 'red')
 print(logo)
-#time.sleep(3) 
+#time.sleep(3)  
 house = colored('''
             
                *         .              *            _.---._      
@@ -357,7 +362,7 @@ while command!="quit" and command!="exit" and location!="EXIT":
         else:
             location = movedLocation
             look()
-        if location=="QUESTBEDROOM" and QuestVoices==False:
+        if location=="MASTERBEDROOM" and QuestVoices==False:
             eventQuestBedroomVoices()
             QuestVoices = True
         if location=="WALKWAYBATH" and WalkwayVoices==False:
@@ -371,6 +376,10 @@ while command!="quit" and command!="exit" and location!="EXIT":
             AtticVoices = True
         if location=="BATHROOM" and Flashlight==False:
             loseFlashlight()
+            lightSource = False
+        if location=="QUESTBEDROOM" and lightSource==False:
+            eventQuestBedroomFall()
+            oilBody = True
 
     # Light command
     elif command=="light":

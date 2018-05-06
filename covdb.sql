@@ -168,4 +168,4 @@ INSERT INTO Object VALUES ('FLASHLIGHT', 'Convoy S2+ LED Flashlight ', 'flashlig
 INSERT INTO Object VALUES ('FOOD', 'A traditional braised beef stew with thick, rich gravy. It looks so fresh..', 'food', '', 'KITCHEN', '', TRUE, FALSE, TRUE, '');
 INSERT INTO Object VALUES ('NEWSPAPER', 'May 19th, 1874. A small child was the only one who survived a terrible fire in Lottersbyck Mansion. The child is badly traumatized..', 'newspaper', '', 'STUDY', '', TRUE, FALSE, TRUE, '');
 INSERT INTO Object VALUES ('PILLOW', 'A Soft white pillow', 'pillow', '', 'MASTERBEDROOM', '', TRUE, FALSE, TRUE, '');
-
+INSERT INTO Object VALUES ('CAMERA', 'A small camera, much like my own', 'camera', '', 'WELL', '', FALSE, FALSE, FALSE, '');
