@@ -155,8 +155,8 @@ INSERT INTO PASSAGE VALUES ('e', 'I can''t go', '', TRUE, FALSE, '', 'WELL', 'TH
 -- All objects
 INSERT INTO PASSAGE VALUES ('LADDER', 'Old ladder', 'ladder', 'Old used wooden ladder', 'SECRETROOM', FALSE, TRUE, FALSE, '');
 INSERT INTO PASSAGE VALUES ('STUDYKEY', 'Key to the study', 'key', 'Beatifully engraved iron key', 'DININGHALL', FALSE, TRUE, FALSE, '');
-INSERT INTO PASSAGE VALUES ('MANIFEST', 'Worn manifest', 'manifest', '', 'STUDY', FALSE, TRUE, FALSE, '');
-INSERT INTO PASSAGE VALUES ('BIOGRAPHY', '', 'biography', '', 'LIBRARY', FALSE, TRUE, FALSE, '');
+INSERT INTO PASSAGE VALUES ('MANIFEST', 'Worn manifest', 'manifest', 'Contains list of all books in the library. Nothing except but couple words can be read', 'STUDY', FALSE, TRUE, FALSE, '');
+INSERT INTO PASSAGE VALUES ('BIOGRAPHY', 'Dusty biography', 'biography', 'The book seems mostly ruined except for the last few pages...', 'LIBRARY', FALSE, TRUE, FALSE, '');
 INSERT INTO PASSAGE VALUES ('ATTICKEY', 'Key to the attic', 'key', 'Old sturdy iron key', 'LIBRARY', FALSE, TRUE, FALSE, '');
 INSERT INTO PASSAGE VALUES ('LAMP', 'Rusty oil lamp', 'lamp', 'Rusty oil lamp with small amount of oil inside', 'CHILDRENSROOM', FALSE, TRUE, FALSE, '');
 INSERT INTO PASSAGE VALUES ('CLOTHES', 'Old clothes to wear', 'clothes', 'Old and darkish worn out clothes', 'CHILDRENSROOM', FALSE, TRUE, FALSE, '');
