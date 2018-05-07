@@ -450,7 +450,9 @@ while command!="quit" and command!="exit" and location!="THEEND":
         elif location=="MASTERBEDROOM" and target=="bed":
             print("Finally some rest...")
             print("You feel someone next to you...")
+            time.sleep(3)
             print("It's probably nothing...")
+            time.sleep(3)
             print("Turns out that someone just choked you with the pillows, so maybe next time don't go to sleep in haunted mansions.")
             command="quit"
         else:
