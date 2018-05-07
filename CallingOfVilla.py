@@ -133,7 +133,7 @@ def getObject(target):
     sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=TRUE;"
     cur.execute(sql)
     if cur.rowcount==1:
-        print("I now have", target," with me")
+        print("I now have", target,"with me")
     else:
         print("I can't take that right now.")
 
@@ -447,6 +447,12 @@ while command!="quit" and command!="exit" and location!="THEEND":
             useGlimmer()
         elif location=="WELL" and target=="bucket":
             useBucket()
+        elif location=="MASTERBEDROOM" and target=="bed":
+            print("Finally some rest...")
+            print("You feel someone next to you...")
+            print("It's probably nothing...")
+            print("Turns out that someone just choked you with the pillows, so maybe next time don't go to sleep in haunted mansions.")
+            command="quit"
         else:
             print("I can't use that")
         
