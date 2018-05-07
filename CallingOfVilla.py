@@ -56,6 +56,20 @@ def look():
         print (row[0])
         if (row[1]!=""):
             print(row[1])
+            showObjects()
+
+def showObjects():
+    cur = db.cursor()
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location ='" + location + "';"
+    cur.execute(sql)
+    res = cur.fetchall()
+    if cur.rowcount>=1:
+        print("These objects are in this room: ")
+        for item in res:
+            print("- " + item[0])
+    else:
+        print("There is no objects in this room.")
+
 
 def eatObject(target):
     cur = db.cursor()
@@ -125,6 +139,10 @@ def eventAtticVoices():
     cprint("...mhmhmhmhmhmhmmhhmmhmhm...", 'yellow')
     time.sleep(3)
     cprint("...I hope so too...", 'cyan')
+
+def eventGarden():
+    print("AAAAAAAAAAAAAAAHHH...")
+    print("Statue fell on you. You died painfully. Next time don't rush things too much.")
 
 def eventQuestBedroomFall():
     print("It is really dark in here...")
@@ -263,7 +281,7 @@ def stopAudio():
 
 db = mysql.connector.connect(host="localhost",
                            user="root",
-                           passwd="MountainDiscoLadder",
+                           passwd="0177",
                            db="covdb",
                            buffered=True)
 
@@ -413,6 +431,14 @@ while command!="quit" and command!="exit" and location!="THEEND":
         movedLocation = move(location, command)
         if location == movedLocation:
             print("I can't move there")
+
+        elif location=="MAINHALL" and command=="n":
+            cur = db.cursor()
+            sql = "SELECT Locked FROM Passage WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE'"
+            cur.execute(sql)==True
+            if cur.rowcount>=1:
+                eventGarden()
+                command="quit"
         else:
             location = movedLocation
             look()
@@ -442,7 +468,7 @@ while command!="quit" and command!="exit" and location!="THEEND":
             command="quit"
         if location=="HALLWAY" and lightSource==False:
             print("I can see some light coming from the Chidlren's Room.")
-
+         
     #Might work, tbc
     elif command=="restart":
       db.rollback()
