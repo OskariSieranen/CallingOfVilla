@@ -396,7 +396,7 @@ house = colored('''
 ''','white')
 print(house)
 PlayerName = input("Give me your name: ")
-print("Your name is", PlayerName, "and you are an aspiring blogger going to explore and old abandoned mansion to record your journey for money and fame.")
+print("Your name is", PlayerName, "and you are an aspiring blogger going to explore an old abandoned mansion to record your journey for money and fame.")
 print("Your friend dropped of you at the edge of the forest and after a couple of hours of hiking, you have finally arrived at the old mansion.")
 print("You enter the once magnificent building and hear the giant double doors lock behind your back.")
 print("The old house seems creepier and creepier by the second, and you have to...")
@@ -479,6 +479,9 @@ while command!="quit" and command!="exit" and location!="THEEND":
             time.sleep(3)
             print("Turns out that someone just choked you with the pillows, so maybe next time don't go to sleep in haunted mansions.")
             command="quit"
+        elif target=="clothes":
+            oilBody=False
+            print("A change of clothes...")
         else:
             print("I can't use that")
         
