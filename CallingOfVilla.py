@@ -125,6 +125,7 @@ def readObject(target):
         manifestText = cur.execute(sql)
         print("It's and old manifest of the books in the library. It's mostly destroyed by time, but I can still make out the location of a biography in the library... I wonder if it is still readable.")
         sql = "UPDATE Object SET Available=True WHERE Object_Id='BIOGRAPHY'"
+        cur.execute(sql)
     else:
         print("There is nothing to read.")
 
@@ -303,7 +304,7 @@ def deathByTrip():
     print("Your long robes trip you up on the steep stairs and you fall snapping your neck. Maybe illuminate your way next time.")
     
 def playAudio():
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
 
 def stopAudio():
     pygame.mixer.music.stop()
