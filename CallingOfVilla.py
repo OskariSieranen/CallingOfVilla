@@ -66,6 +66,13 @@ def look():
         if (row[1]!=""):
             print(row[1])
             showObjects()
+    print("There are exits at: ")
+    sql = "SELECT Direction FROM Passage WHERE StartLocation='" + location + "';"
+    cur.execute(sql)
+    res = cur.fetchall()
+    if cur.rowcount>=1:
+        for place in res:
+            print("- " + place[0])
 
 def helpPlayer():
     print("Here are the available commands: ")
@@ -110,9 +117,12 @@ def readObject(target):
     #sql = "UPDATE Object SET Location='PLAYER', Available=FALSE WHERE Refname='" + target + "' AND Location='" + location + "' AND Available=TRUE AND Takeable=FALSE;"
     cur.execute(sql)
     if cur.rowcount>=1 and target=="newspaper" and location=="STUDY":
+        cur.execute(sql)
         sql = "SELECT Details FROM Object WHERE Object_Id='NEWSPAPER'"
-        newspaperText = cur.execute(sql)
-        print("Hmm what does it say?", newspaperText)
+        cur.execute(sql)
+        newspaperText = cur.fetchall()
+        for news in newspaperText:
+            print("What does it say...", news[0])
     elif cur.rowcount>=1 and target=="biography" and location=="LIBRARY":
         print("Hmm what is this?" , "Major depressive disorder descended upon writer" ,PlayerName, "during their college and young professional days, after a lifetime of loneliness and longing for family. Like many individuals suffering from this agonizingly common condition, she turned towards substance abuse and even a suicide attempt as a means of self-medicating. But a combination of steel will and a determined doctor set Wurtzel back on the difficult road to recovery.")
         print("What the hell is going on???")
@@ -137,6 +147,15 @@ def getObject(target):
         print("I now have", target,"with me")
     else:
         print("I can't take that right now.")
+
+def dropObject(target):
+    cur = db.cursor()
+    sql = "UPDATE Object SET Location='" + location + "' WHERE Object_Id='" + target + "';"
+    cur.execute(sql)
+    if cur.rowcount>=1:
+        print("I dropped the", target)
+    else:
+        print("I can't drop that.")
 
 # Events here:
 def eventTrophyVoices():
@@ -304,7 +323,7 @@ def deathByTrip():
     print("Your long robes trip you up on the steep stairs and you fall snapping your neck. Maybe illuminate your way next time.")
     
 def playAudio():
-    pygame.mixer.music.play(-1)
+    pygame.mixer.music.play()
 
 def stopAudio():
     pygame.mixer.music.stop()
@@ -319,7 +338,7 @@ db = mysql.connector.connect(host="localhost",
 pygame.init()
 pygame.mixer.init()
 pygame.mixer.music.load('Theme.wav')
-pygame.mixer.music.play()
+pygame.mixer.music.play(loops = -1)
 
 # Initializing the emptyscreen, loading titles and resetting the location
 WalkwayVoices = QuestVoices = TrophyVoices = AtticVoices = oilBody = Flashlight = firstKey = False
@@ -419,7 +438,8 @@ while command!="quit" and command!="exit" and location!="THEEND":
     # Taking objects 
     elif command=="take" or command=="get" and target!="":
         getOK = getObject(target)
-        # if getOK==1:
+        if target=="ladder" and location=="SECRETROOM":
+            print("I think I heard noises upstairs... Maybe I can use the ladder to get there... ")
             # if location=="SECRETROOM" and target=="ladder":
             #     takeLadder()
             # elif location=="DININGHALL" and target=="key":
@@ -429,6 +449,9 @@ while command!="quit" and command!="exit" and location!="THEEND":
             # elif location=="FOUNTAIN" and target=="key":
             #     takeGlimmer()
 
+    elif command=="drop" and target!="":
+        dropObject(target)
+    
     elif command=="use":
         if target=="":
             print("I don't know what to use.")
@@ -505,6 +528,9 @@ while command!="quit" and command!="exit" and location!="THEEND":
             if cur.rowcount>=1:
                 eventGarden()
                 command="quit"
+        # if location=="MAINHALL" and command=="nw":
+        #     print("There is no floor here and you fall to your death...")
+        #     command="quit"
          
     #Might work, tbc
     elif command=="restart":
