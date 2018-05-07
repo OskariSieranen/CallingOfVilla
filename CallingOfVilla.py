@@ -6,7 +6,6 @@ from termcolor import colored, cprint
 import pygame
 
 # Commands go here | First person always. Ex. "I have *List of items*"
-# TODO: Commands: inspect object?t
 # TODO: add appearing of keys to the dining hall and library Fix 
 
 def inventory():
@@ -46,7 +45,17 @@ def move(location, direction):
         direction = location
     return direction
 
-#TODO Change to include objects aswell make it show the extra details after the i am in the; so fech desc and details separatetly
+def inspect(target):
+    cur = db.cursor()
+    sql = "SELECT Description, Details FROM Object WHERE Refname='" + target + "';"
+    cur.execute(sql)
+    res = cur.fetchall()
+    if cur.rowcount>=1:
+        for item in res:
+            print(item[0])
+            print(item[1])
+    else: 
+        print("I can't do that.")
 def look():
     cur = db.cursor()
     sql = "SELECT Description, Details FROM Location WHERE Location_Id='" + location + "';"
@@ -58,9 +67,24 @@ def look():
             print(row[1])
             showObjects()
 
+def helpPlayer():
+    print("Here are the available commands: ")
+    print("- Help")
+    print("- Look, L")
+    print("- N, E, S, W, U, D, NE, NW, SE, SW")
+    print("- Inventory, I")
+    print("- Use #item")
+    print("- Take #item")
+    print("- Read #item")
+    print("- Eat #item")
+    print("- Inspect #item")
+    print("- Light")
+    print("- Quit, Exit")
+    print("- Restart")
+
 def showObjects():
     cur = db.cursor()
-    sql = "SELECT Object_Id, Description FROM Object WHERE Location ='" + location + "';"
+    sql = "SELECT Object_Id, Description FROM Object WHERE Location ='" + location + "' AND Available=True;"
     cur.execute(sql)
     res = cur.fetchall()
     if cur.rowcount>=1:
@@ -93,12 +117,14 @@ def readObject(target):
         print("Hmm what is this?" , "Major depressive disorder descended upon writer" ,PlayerName, "during their college and young professional days, after a lifetime of loneliness and longing for family. Like many individuals suffering from this agonizingly common condition, she turned towards substance abuse and even a suicide attempt as a means of self-medicating. But a combination of steel will and a determined doctor set Wurtzel back on the difficult road to recovery.")
         print("What the hell is going on???")
         print("A sturdy iron key drops from between the pages of the biography...")
+        print("I'll hold on to the key... Maybe it'll be useful...")
         sql = "UPDATE Object SET Location='PLAYER' , Available=FALSE WHERE Object_Id='ATTICKEY'"
         cur.execute(sql)
     elif cur.rowcount>=1 and target=="manifest" and location=="STUDY":
         sql = "SELECT Details FROM Object WHERE Object_Id='MANIFEST'"
         manifestText = cur.execute(sql)
         print("It's and old manifest of the books in the library. It's mostly destroyed by time, but I can still make out the location of a biography in the library... I wonder if it is still readable.")
+        sql = "UPDATE Object SET Available=True WHERE Object_Id='BIOGRAPHY'"
     else:
         print("There is nothing to read.")
 
@@ -128,6 +154,9 @@ def eventWalkwayVoices():
     
 def eventMasterBedroomVoices():
     cprint("... I'm feeling peckish... they always said that the answer can be found on your plate...", 'blue')
+    cur = db.cursor()
+    sql = "UPDATE Object SET Available=True WHERE Object_Id='STUDYKEY'"
+    cur.execute(sql)
 
 def eventAtticVoices():
     cprint("...I wonder if he is ok...", 'cyan')
@@ -281,7 +310,7 @@ def stopAudio():
 
 db = mysql.connector.connect(host="localhost",
                            user="root",
-                           passwd="0177",
+                           passwd="MountainDiscoLadder",
                            db="covdb",
                            buffered=True)
 
@@ -423,7 +452,6 @@ while command!="quit" and command!="exit" and location!="THEEND":
         
 
     # Movement 
-    #TODO IS THAT QUEST B-ROOM SUPPOSED TO BE MASTER
     elif command=="north" or command=="east" or command=="south" or command=="west" or command=="n" or command=="e" or command=="s" or command=="w" \
         or command=="nw" or command=="sw" or command=="ne" or command=="se" or command=="northwest" or command=="southwest" or command=="northeast" or command=="southeast" \
         or command=="up" or command=="u" or command=="down" or command=="d":
@@ -431,20 +459,13 @@ while command!="quit" and command!="exit" and location!="THEEND":
         movedLocation = move(location, command)
         if location == movedLocation:
             print("I can't move there")
-
-        elif location=="MAINHALL" and command=="n":
-            cur = db.cursor()
-            sql = "SELECT Locked FROM Passage WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE'"
-            cur.execute(sql)==True
-            if cur.rowcount>=1:
-                eventGarden()
-                command="quit"
         else:
             location = movedLocation
             look()
         if location=="MASTERBEDROOM" and QuestVoices==False:
             eventMasterBedroomVoices()
             QuestVoices = True
+
         if location=="WALKWAYBATH" and WalkwayVoices==False:
             eventWalkwayVoices()
             WalkwayVoices = True
@@ -468,6 +489,13 @@ while command!="quit" and command!="exit" and location!="THEEND":
             command="quit"
         if location=="HALLWAY" and lightSource==False:
             print("I can see some light coming from the Chidlren's Room.")
+        if location=="MAINHALL" and command=="n":
+            cur = db.cursor()
+            sql = "SELECT Locked FROM Passage WHERE StartLocation='MAINHALL' AND Destination='GARDENENTRANCE'"
+            cur.execute(sql)==True
+            if cur.rowcount>=1:
+                eventGarden()
+                command="quit"
          
     #Might work, tbc
     elif command=="restart":
@@ -479,6 +507,12 @@ while command!="quit" and command!="exit" and location!="THEEND":
     # Light command
     elif command=="darkness" and location=="RIDDLEROOM":
         eventRiddleDoorOpening()
+    
+    elif command=="help":
+        helpPlayer()
+    
+    elif command=="inspect" and target!="":
+        inspect(target)
 
     
     elif command=="light":

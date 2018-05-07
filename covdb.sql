@@ -159,17 +159,17 @@ INSERT INTO Passage VALUES ('e', 'I can''t go', '', TRUE, FALSE, '', 'WELL', 'TH
 -- OBJECT
 -- All objects
 INSERT INTO Object VALUES ('LADDER', 'Old ladder', 'ladder', 'Old used wooden ladder', 'SECRETROOM', '', TRUE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('STUDYKEY', 'Key to the study', 'key', 'Beatifully engraved iron key', 'DININGHALL', '', TRUE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('STUDYKEY', 'Key to the study', 'key', 'Beatifully engraved iron key', 'DININGHALL', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('MANIFEST', 'Worn manifest featuring list of all the books of the library', 'manifest', '', 'STUDY', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('BIOGRAPHY', '-', 'biography', '', 'LIBRARY', '', FALSE, TRUE, FALSE, '');
-INSERT INTO Object VALUES ('ATTICKEY', 'Key to the attic', 'key', 'Old sturdy iron key', 'LIBRARY', '', TRUE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('ATTICKEY', 'Key to the attic', 'key', 'Old sturdy iron key', 'LIBRARY', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('LAMP', 'Rusty oil lamp', 'lamp', 'Rusty oil lamp with small amount of oil inside', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('CLOTHES', 'Old clothes to wear', 'clothes', 'Clean pure white clothes', 'CHILDRENSROOM', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('GLIMMER', 'Key to the cellar', 'glimmer', 'A small shiny key', 'FOUNTAIN', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('BUCKET', '', 'bucket', 'Wooden bucket with some rope attached to it', 'TOOLSHED', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('ROPE', 'Old rope', 'rope', '', 'TOOLSHED', '', FALSE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('PHONE', 'Old an reliable NOKIA 3310', 'phone', 'NOKIA 3310. Possible to use as a weapon and call after 1 year without charging. Better than a brick', 'WELL', '', FALSE, TRUE, FALSE,'');
-INSERT INTO Object VALUES ('FLASHLIGHT', 'Convoy S2+ LED Flashlight ', 'flashlight', '', 'PLAYER', '', TRUE, TRUE, FALSE, '');
+INSERT INTO Object VALUES ('FLASHLIGHT', 'Convoy S2+ LED Flashlight ', 'flashlight', 'A sturdy black flashlight', 'PLAYER', '', TRUE, TRUE, FALSE, '');
 INSERT INTO Object VALUES ('FOOD', '', 'food', 'A traditional braised beef stew with thick, rich gravy. It looks so fresh..', 'KITCHEN', '', TRUE, FALSE, TRUE, '');
 INSERT INTO Object VALUES ('NEWSPAPER', '-', 'newspaper', 'May 19th, 1874. A small child was the only one who survived a terrible fire in Lottersbyck Mansion. The child is badly traumatized..', 'STUDY', '', TRUE, FALSE, TRUE, '');
 INSERT INTO Object VALUES ('PILLOW', 'A Soft white pillow', 'pillow', '', 'MASTERBEDROOM', '', TRUE, FALSE, TRUE, '');
