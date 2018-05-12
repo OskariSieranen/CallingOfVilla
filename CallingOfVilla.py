@@ -329,8 +329,8 @@ def stopAudio():
     pygame.mixer.music.stop()
 
 db = mysql.connector.connect(host="localhost",
-                           user="root",
-                           passwd="MountainDiscoLadder",
+                           user="dbuser06",
+                           passwd="dbpass",
                            db="covdb",
                            buffered=True)
 
